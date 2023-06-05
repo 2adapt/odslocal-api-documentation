@@ -78,7 +78,7 @@ The URL path has the form `/api/v3/indicator/<indicator_id>`. The `<indicator_id
 <image>
 
 
-IMPORTANT: the API is only able to update data of some existing municipal indicator. It cannot be used to create a new indicator. This means that it is necessary to manually create the municipal indicators (using the ODSlocal backoffice) that are meant to be updated via the API. The fields can be initially empty when those indicators are created (or filled with some dummy data). Once they are created, the `<indicator_id>` will be known and the API can then be used to update the fields.
+IMPORTANT: the API is only able to update data of some existing municipal indicator. It cannot be used to create a new indicator. This means that it is necessary to manually create the municipal indicators (using the ODSlocal backoffice) that are meant to be updated via the API. The fields can be initially empty when those indicators are created (or filled with some dummy data). Once they are created, the `indicator_id` will be known and the API can then be used to update the fields.
 
 
 #### Fields
@@ -138,6 +138,6 @@ updateIndicator();
 
 ```
 
-IMPORTANT: when using `fetch` the secret UUID can be easily found by the user (looking at the network activity in devtools), so this example is not recommended. Since the UUID is a "bearer token", anyone who has it can update the municipal indicators. It should be used only to quickly test the API. 
+IMPORTANT: when using `fetch` the secret UUID can be easily found by the user (looking at the network activity in devtools), so this example is not recommended. Since the UUID is a "bearer token", anyone who knows it is able to update the municipal indicators. So in principle it should be used only to make a simplequickly test the API. 
 
 
