@@ -75,10 +75,10 @@ The following page has more details about the concept of "Bearer authentication"
 
 The URL path has the form `/api/v3/indicator/<indicator_id>`. The `<indicator_id>` part should be replaced with the correct id (a numeric value), which can be obtained in the ODSlocal backoffice. See the printscreen below for an example.
 
-<image>
-
+image
 
 IMPORTANT: the API is only able to update data of some existing municipal indicator. It cannot be used to create a new indicator. This means that it is necessary to manually create the municipal indicators (using the ODSlocal backoffice) that are meant to be updated via the API. The fields can be initially empty when those indicators are created (or filled with some dummy data). Once they are created, the `indicator_id` will be known and the API can then be used to update the fields.
+
 
 
 #### Fields
