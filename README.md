@@ -6,7 +6,7 @@
 
 One of the main features of the ODSlocal platform is the possibility of creating and updating municipal indicators in the context of the SDG framework. Below is an example from Loulé:
 
-![indicador_municipal_loule](https://github.com/2adapt/odslocal-api-documentation/assets/2184309/b353df90-b2b6-4d14-a0fb-5d9739096565)
+![indicador_municipal_loule](https://github.com/2adapt/odslocal-api-documentation/assets/2184309/dc7158f9-1b35-4944-8202-8cb50022f44e)
 
 ODSlocal provides an HTTP API to allow a direct communication between an internal application (created by the municipality, for instance) and the ODSlocal database. This can be used for automatic data syncronization between those internal applications and ODSlocal.
 
@@ -57,9 +57,9 @@ The following page has more details about the concept of "Bearer authentication"
 
 ## Indicator identification in the URL
 
-The URL endpoint to update an indicator has the form `/api/v3/indicator/{indicator_id}`. The `{indicator_id}` segment should be replaced with the correct id (a numeric value), which can be obtained in the ODSlocal backoffice. See the printscreen below for an example.
+The URL endpoint to update an indicator has the form `/api/v3/indicator/{indicator_id}`. The `{indicator_id}` segment should be replaced with the correct id (a numeric value), which can be obtained in the ODSlocal backoffice. See the printscreen below for an example (below "Actualizado em").
 
-TODO: image
+![backoffice_identificador](https://github.com/2adapt/odslocal-api-documentation/assets/2184309/1e0fefa2-c7ba-4952-bb46-fe1492c23b8a)
 
 **NOTE:** this endpoint is only able to update data of some existing municipal indicator. That indicator can be created manually in the backoffice (the fields can be left empty). It also possible to create an indicator using another endpoint (see the next section).
 
