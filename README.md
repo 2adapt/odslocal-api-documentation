@@ -86,32 +86,32 @@ The response will be something like this:
 {"success":true, "indicator_id": 124}
 ```
 
-This means that a new (empty) indicator was created. The numeric value in `indicator_id` can be used to update the fields (as described above, using the `/api/v3/indicator/{indicator_id}` nedpoint)
+This means that a new (empty) indicator was created. The numeric value in `indicator_id` can be used to update the fields (as described above, using the `/api/v3/indicator/{indicator_id}` endpoint)
 
 ## Fields
 
-The body of the PATCH request should have the data to be updated. These are the available fields:
+The body of the `PATCH` request should have the data to be updated. These are the available fields:
 
-- title
-- goal_code: a numeric value from 1 to 17
-- target_code: a valid SDG target code associated to the goal_code
-- is_visible: true or false
-- internal_notes
-- target_direction ("higher" or "lower")
-- target_value
-- target_criterion: "a", "b" or "d"
-- use_for_chart: true or false
-- chart_type: "lines" or "bars"
-- value_2010
-- value_2011
-- ...
-- value_2021
-- value_2022
-- metadata_url
-- metadata_unit
-- metadata_notes
-- metadata_source
-- metadata_updated_at
+- `title`
+- `goal_code`: a numeric value from 1 to 17
+- `target_code`: a valid SDG target code associated to the goal_code
+- `is_visible`: true or false
+- `internal_notes`
+- `target_direction`: "higher" or "lower"
+- `target_value`
+- `target_criterion`: "a", "b" or "d"
+- `use_for_chart`: true or false
+- `chart_type`: "lines" or "bars"
+- `value_2010`
+- `value_2011`
+- `...
+- `value_2021`
+- `value_2022`
+- `metadata_url`
+- `metadata_unit`
+- `metadata_notes`
+- `metadata_source`
+- `metadata_updated_at`
 
 
 
