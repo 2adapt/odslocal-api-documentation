@@ -4,10 +4,12 @@
 
 ## Introduction
 
-One of the main features in the ODSlocal platform is the possibility of each municipality to show municipal indicators in the context of the SDG framework. Below is an example from Loulé:
+One of the main features of the ODSlocal platform is the possibility of creating and updating municipal indicators in the context of the SDG framework. Below is an example from Loulé:
 
+![indicador_municipal_loule](https://github.com/2adapt/odslocal-api-documentation/assets/2184309/b353df90-b2b6-4d14-a0fb-5d9739096565)
 
 ODSlocal provides an HTTP API which allows direct communication between some internal application (from the municipality) and the ODSlocal database. This can be used for automatic data syncronization between those internal applications and ODSlocal.
+
 
 
 ### Example 1 - update a municipal indicator using some HTTP client in the server
@@ -19,8 +21,9 @@ This example should be executed in a server environment where the popular `curl`
 
 export INDICATOR_ID="263"
 export AUTH_TOKEN="84fbddde-c09b-47e8-a7b7-2f0ce465e694"
+export ORIGIN="http://localhost:8011"
 
-curl http://odslocal.pt/api/v3/indicator/${INDICATOR_ID} \
+curl ${ORIGIN}/api/v3/indicator/${INDICATOR_ID} \
 --request PATCH \
 --header "authorization: Bearer ${AUTH_TOKEN}" \
 --data "title=xyz2 with space 2" \
@@ -46,7 +49,7 @@ curl http://odslocal.pt/api/v3/indicator/${INDICATOR_ID} \
 
 ```
 
-Note that by default, curl will add the header "content-type: x-www-form-urlencoded" when sending data. Alternatively we can the data in JSON by explicitely adding "content-type: application/json", like so:
+NOTE: by default, curl will add the header "content-type: x-www-form-urlencoded" when sending data. Alternatively we can send the data in JSON format by explicitely using the header "content-type: application/json". See the example 3 below for more details.
 
 
 ```shell
@@ -79,7 +82,25 @@ image
 
 IMPORTANT: the API is only able to update data of some existing municipal indicator. It cannot be used to create a new indicator. This means that it is necessary to manually create the municipal indicators (using the ODSlocal backoffice) that are meant to be updated via the API. The fields can be initially empty when those indicators are created (or filled with some dummy data). Once they are created, the `indicator_id` will be known and the API can then be used to update the fields.
 
+If necessary, create an new (empty) indicator:
 
+```shell
+
+export AUTH_TOKEN="2dda90ee-8da5-427f-a9db-7c79273c0ada"
+export ORIGIN="http://localhost:8011"
+
+curl ${ORIGIN}/api/v3/indicator \
+--request POST \
+--header "authorization: Bearer ${AUTH_TOKEN}"
+
+```
+
+The response will be a JSON like this:
+```
+{"success":true, "indicator_id": 301}
+```
+
+This means that a new (empty) indicator was created. The `indicator_id` can be used to update the fields (as described above)
 
 #### Fields
 
