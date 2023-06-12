@@ -20,11 +20,11 @@ This example should be executed in a server environment where the popular `curl`
 ```shell
 
 export INDICATOR_ID="123"
-export AUTH_TOKEN="84fbddde-c09b-47e8-a7b7-2f0ce465e694"
+export ACCESS_TOKEN="84fbddde-c09b-47e8-a7b7-2f0ce465e694"
 
 curl https://odslocal.pt/api/v3/indicator/${INDICATOR_ID} \
 --request PATCH \
---header "authorization: Bearer ${AUTH_TOKEN}" \
+--header "authorization: Bearer ${ACCESS_TOKEN}" \
 --data "title=the title can have spaces" \
 --data "goal_code=1" \
 --data "target_code=1.1" \
@@ -51,67 +51,69 @@ curl https://odslocal.pt/api/v3/indicator/${INDICATOR_ID} \
 
 The ODSlocal API uses a simple "bearer token" authentication scheme. This means that the HTTP request must send a "authorization" header like this: `authorization: bearer {token}`, where `{token}` should be replaced with a secret UUID string provided by ODSlocal. 
 
-The following page has more details about the concept of "Bearer authentication": https://swagger.io/docs/specification/authentication/bearer-authentication/
+The following page has more details about the concept of "Bearer authentication": 
+
+- [Swagger OpenAPI Guide > Authentication > Bearer Authentication](https://swagger.io/docs/specification/authentication/bearer-authentication/)
+- [The OAuth 2.0 Authorization Framework: Bearer Token Usage](https://datatracker.ietf.org/doc/html/rfc6750)
 
 
 
 ## Indicator identification in the URL
 
-The URL endpoint to update an indicator has the form `/api/v3/indicator/{indicator_id}`. The `{indicator_id}` segment should be replaced with the correct id (a numeric value), which can be obtained in the ODSlocal backoffice. See the printscreen below for an example (below "Actualizado em").
+The URL endpoint to update an indicator has the form `/api/v3/indicator/{indicator_id}`. The `{indicator_id}` segment should be replaced with the id (a number) relative to some municipal indicator. This id can be obtained in the ODSlocal backoffice, as shown in the printscreen below:
 
 ![backoffice_identificador](https://github.com/2adapt/odslocal-api-documentation/assets/2184309/1e0fefa2-c7ba-4952-bb46-fe1492c23b8a)
 
-**NOTE:** this endpoint is only able to update data of some existing municipal indicator. That indicator can be created manually in the backoffice (the fields can be left empty). It also possible to create an indicator using another endpoint (see the next section).
 
+## Creating a new indicator using the API
 
+The endpoint above (`/api/v3/indicator/{indicator_id}`) is able to update data of some municipal indicator **that already exists in ODSlocal**. That indicator can be created manually in the backoffice (the fields can be left empty). 
 
-## Create a new indicator
-
-It is possible to create an new (empty) indicator using this other endpoint:
+If necessary it is possible to create an new (empty) indicator using this other endpoint:
 
 ```shell
 
-export AUTH_TOKEN="2dda90ee-8da5-427f-a9db-7c79273c0ada"
+export ACCESS_TOKEN="2dda90ee-8da5-427f-a9db-7c79273c0ada"
 
 curl https://odslocal.pt/api/v3/indicator \
 --request POST \
---header "authorization: Bearer ${AUTH_TOKEN}"
+--header "authorization: Bearer ${ACCESS_TOKEN}"
 
 ```
 
-**Note:** in this case the HTTP method is `POST` instead of `PATCH`, and there no payload data in the body.
+**NOTE:** in this case the HTTP method is `POST` instead of `PATCH`, and there no payload data in the body.
 
 The response will be something like this:
 ```
-{"success":true, "indicator_id": 124}
+{ "success": true, "indicator_id": 124 }
 ```
 
-This means that a new (empty) indicator was created. The numeric value in `indicator_id` can be used to update the fields (as described above, using the `/api/v3/indicator/{indicator_id}` endpoint)
+This means that a new (empty) indicator was created. The numeric value in `indicator_id` is the id that should be used in the `/api/v3/indicator/{indicator_id}` endpoint (as described above).
 
 ## Fields
 
 The body of the `PATCH` request should have the data to be updated. These are the available fields:
 
-- `title`
-- `goal_code`: a numeric value from 1 to 17
-- `target_code`: a valid SDG target code associated to the goal_code
+- `title`: a string (maximum of 200 characters)
+- `goal_code`: a string relative to one of the goals in the SDG framework (example: "17", which is relative to SDG 17 - https://www.globalgoals.org/goals/17-partnerships-for-the-goals/)
+- `target_code`: a valid SDG target associated to the goal_code (example: "17.1")
 - `is_visible`: true or false
-- `internal_notes`
-- `target_direction`: "higher" or "lower"
-- `target_value`
-- `target_criterion`: "a", "b" or "d"
+- `internal_notes`: a string (maximum of 1000 characters)
+- `target_direction`: one of "higher" or "lower" (for more details see ...)
+- `target_value`: a number
+- `target_criterion`: one of "a", "b" or "d" (for more details see ...)
 - `use_for_chart`: true or false
-- `chart_type`: "lines" or "bars"
-- `value_2010`
-- `value_2011`
+- `chart_type`: one of "lines" or "bars"
+- `value_2010`: a number; can be null (or omitted) if the value is not known
+- `value_2011`: idem
 - `...
-- `value_2021`
-- `value_2022`
-- `metadata_url`
-- `metadata_unit`
-- `metadata_notes`
-- `metadata_source`
-- `metadata_updated_at`
+- `value_2021`: idem
+- `value_2022`: idem
+- `metadata_url`: a string (maximum of 200 characters)
+- `metadata_unit`: a string (maximum of 200 characters)
+- `metadata_notes`: a string (maximum of 1000 characters)
+- `metadata_source`: a string (maximum of 200 characters)
+- `metadata_updated_at`: a string in ISO format (example: '2000-01-01')
 
 
 
@@ -122,11 +124,11 @@ This example is similar to example 1. Here the data is sent in JSON format.
 ```shell
 
 export INDICATOR_ID="123"
-export AUTH_TOKEN="84fbddde-c09b-47e8-a7b7-2f0ce465e694"
+export ACCESS_TOKEN="84fbddde-c09b-47e8-a7b7-2f0ce465e694"
 
 curl https://odslocal.pt/api/v3/indicator/${INDICATOR_ID} \
 --request PATCH \
---header "authorization: Bearer ${AUTH_TOKEN}" \
+--header "authorization: Bearer ${ACCESS_TOKEN}" \
 --header "content-type: application/json" \
 --data '{"title":"the title can have spaces","goal_code":"1","target_code":"1.1"}'
 
@@ -142,7 +144,7 @@ This is an alternative way to use the API. In this case the PATCH request is sen
 async function updateIndicator() {
 
 	const INDICATOR_ID = '123';
-	const AUTH_TOKEN = '84fbddde-c09b-47e8-a7b7-2f0ce465e694';
+	const ACCESS_TOKEN = '84fbddde-c09b-47e8-a7b7-2f0ce465e694';
 	const data = {
 		"title":"xyz",
 		"goal_code":"15",
