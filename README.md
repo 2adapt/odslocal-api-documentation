@@ -101,21 +101,23 @@ The body of the `PATCH` request should have the data to be updated. These are th
 - `internal_notes`: a string (maximum of 1000 characters)
 - `target_direction`: one of "higher" or "lower" (for more details see ...)
 - `target_value`: a number
-- `target_criterion`: one of "a", "b" or "d" (for more details see ...)
+- `target_criterion`: one of "a", "b" or "d"; default is "d" (for more details see ...)
 - `use_for_chart`: true or false
 - `chart_type`: one of "lines" or "bars"
-- `value_2010`: a number; can be null (or omitted) if the value is not known
-- `value_2011`: idem
-- `...
-- `value_2021`: idem
-- `value_2022`: idem
 - `metadata_url`: a string (maximum of 200 characters)
 - `metadata_unit`: a string (maximum of 200 characters)
 - `metadata_notes`: a string (maximum of 1000 characters)
 - `metadata_source`: a string (maximum of 200 characters)
 - `metadata_updated_at`: a string in ISO format (example: '2000-01-01')
+- `value_2010`: a number; if the value is not known can be null
+- `note_2010`: a note associated to this year
+- `value_2011`: ibidem
+- `note_2011`: ibidem
+- (...)
+- `value_2022`: ibidem
+- `note_2022`: ibidem
 
-
+Any of these fields can be omitted. In that case the API won't updated that field.
 
 ## Example 3 - update a municipal indicator using `curl` (JSON variant)
 
