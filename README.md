@@ -25,18 +25,17 @@ export ACCESS_TOKEN="84fbddde-c09b-47e8-a7b7-2f0ce465e694"
 curl https://odslocal.pt/api/v3/indicator/${INDICATOR_ID} \
 --request PATCH \
 --header "authorization: Bearer ${ACCESS_TOKEN}" \
---data "title=the title can have spaces" \
+--data "title=the title of the indicator" \
 --data "goal_code=1" \
 --data "target_code=1.1" \
---data "value_2010=..." \
---data "value_2011=..." \
---data "value_2021=..." \
---data "value_2022=..." \
---data "metadata_url=..." \
---data "metadata_unit=..." \
---data "metadata_notes=..." \
---data "metadata_source=..." \
---data "metadata_updated_at=2000-01-01"
+--data "metadata_url=http://something.com" \
+--data "metadata_unit=something" \
+--data "metadata_notes=some notes" \
+--data "metadata_source=the source" \
+--data "metadata_updated_at=2023-01-01" \
+--data "value_2020=111" \
+--data "value_2021=222" \
+--data "value_2022=333"
 
 
 ```
