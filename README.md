@@ -144,13 +144,15 @@ This is an alternative way to use the API. In this case the PATCH request is sen
 ```js
 async function updateIndicator() {
 
-	const INDICATOR_ID = '123';
 	const ACCESS_TOKEN = '84fbddde-c09b-47e8-a7b7-2f0ce465e694';
+	const INDICATOR_ID = 123;
 
 	const data = {
-		title: 'xyz',
-		goal_code: '15',
-		target_code: '15.9'
+		title: 'título do indicador atualizado pela API',
+		goal_code: '2',
+		target_code: '2.1',
+		value_2022: 456.7,
+		note_2022: 'valor provisório',
 	};
 
 	let res = await fetch(`https://odslocal.pt/api/v3/indicator/${INDICATOR_ID}`, {
