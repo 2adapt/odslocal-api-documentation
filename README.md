@@ -40,7 +40,7 @@ curl https://odslocal.pt/api/v3/indicator/${INDICATOR_ID} \
 
 ```
 
-**NOTE:** by default, curl will add the header "content-type: x-www-form-urlencoded" when sending data. Alternatively we can send the data in JSON format by explicitely using the header "content-type: application/json". See example 3 below for more details.
+**NOTE:** by default, `curl` will add the header "content-type: x-www-form-urlencoded" when sending data. Alternatively we can send the data in JSON format by explicitely using the header "content-type: application/json". See example 3 below for more details.
 
 
 
@@ -68,7 +68,7 @@ The URL endpoint to update an indicator has the form `/api/v3/indicator/{indicat
 
 The endpoint above (`/api/v3/indicator/{indicator_id}`) is able to update data of some municipal indicator **that already exists in ODSlocal**. That indicator can be created manually in the backoffice (the fields can be left empty). 
 
-If necessary it is possible to create an new (empty) indicator using this other endpoint:
+However it is also possible to create an new (empty) indicator using this other endpoint:
 
 ```shell
 
@@ -168,6 +168,6 @@ updateIndicator();
 
 ```
 
-IMPORTANT: when using `fetch` the secret UUID can be easily found by the user (looking at the network activity in devtools), so this example is not recommended. Since the UUID is a "bearer token", anyone who knows it is able to update the municipal indicators. So in principle it should be used only to make a simplequickly test the API. 
+**NOTE:** when using `fetch` the secret UUID can be easily found by the user (looking at the network activity in devtools), so this example is not recommended. Since the UUID is a "bearer token", anyone who knows it is able to update the municipal indicators. So in principle it should be used only to make a simplequickly test the API. 
 
 
