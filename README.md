@@ -28,7 +28,7 @@ curl https://odslocal.pt/api/v3/indicator/${INDICATOR_ID} \
 --data "title=the title of the indicator" \
 --data "goal_code=1" \
 --data "target_code=1.1" \
---data "metadata_url=http://something.com" \
+--data "metadata_url=https://something.com" \
 --data "metadata_unit=something" \
 --data "metadata_notes=some notes" \
 --data "metadata_source=the source" \
@@ -146,16 +146,18 @@ async function updateIndicator() {
 
 	const INDICATOR_ID = '123';
 	const ACCESS_TOKEN = '84fbddde-c09b-47e8-a7b7-2f0ce465e694';
+
 	const data = {
-		"title":"xyz",
-		"goal_code":"15",
-		"target_code":"15.9"
+		title: 'xyz',
+		goal_code: '15',
+		target_code: '15.9'
 	};
 
-	let res = await fetch(`http://odslocal.pt/api/v3/indicator/${INDICATOR_ID}`, {
-		method: "PATCH",
+	let res = await fetch(`https://odslocal.pt/api/v3/indicator/${INDICATOR_ID}`, {
+		method: 'PATCH',
 		headers: {
-			"Content-Type": "application/json",
+			'content-type': 'application/json',
+			'authorization': `Bearer ${ACCESS_TOKEN}`
 		},
 		body: JSON.stringify(data),
 	});
