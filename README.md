@@ -32,9 +32,9 @@ curl https://odslocal.pt/api/v3/indicator/${INDICATOR_ID} \
 --data "metadata_notes=some notes" \
 --data "metadata_source=the source" \
 --data "metadata_updated_at=2023-01-01" \
---data "value_2020=111" \
---data "value_2021=222" \
---data "value_2022=333"
+--data "value_2020=45.6" \
+--data "value_2021=46.7" \
+--data "value_2022=47.8"
 
 ```
 
@@ -56,9 +56,9 @@ curl https://odslocal.pt/api/v3/indicator/%INDICATOR_ID% ^
 --data "metadata_notes=some notes" ^
 --data "metadata_source=the source" ^
 --data "metadata_updated_at=2023-01-01" ^
---data "value_2020=111" ^
---data "value_2021=222" ^
---data "value_2022=333"
+--data "value_2020=45.6" ^
+--data "value_2021=46.7" ^
+--data "value_2022=47.8"
 
 ```
 
@@ -190,7 +190,7 @@ async function updateIndicator() {
 		title: 'title updated using fetch',
 		goal_code: '2',
 		target_code: '2.1',
-		value_2022: 456.7,
+		value_2022: 45.6,
 		note_2022: 'something',
 	};
 
