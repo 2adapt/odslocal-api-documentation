@@ -62,7 +62,7 @@ curl https://odslocal.pt/api/v3/indicator/%INDICATOR_ID% ^
 
 ```
 
-**NOTE:** by default, `curl` will add the header `content-type: x-www-form-urlencoded` when sending data. As an alternative, we can send the data in JSON format by explicitely using the header `content-type: application/json`. See example 3 below for more details.
+**NOTE:** by default, `curl` will add the header `content-type: x-www-form-urlencoded` when sending data. As an alternative, we can send the data in JSON format by explicitely using the header `content-type: application/json`. See example 2 below for more details.
 
 
 
@@ -90,7 +90,7 @@ The API endpoint to update an indicator is `PATCH /api/v3/indicator/{indicator_i
 
 The endpoint in the previous section is able to update a municipal indicator **that already exists in ODSlocal**. That indicator can be created manually in the backoffice (the fields can be left empty). 
 
-To create an new (empty) indicator, this other endpoint should be used: `POST /api/v3/indicator`.
+To create an new (empty) indicator using the API, this other endpoint should be used: `POST /api/v3/indicator`.
 
 Here is an example:
 
@@ -157,7 +157,7 @@ Fields related to the metadata:
 
 Any of the fields described above can be omitted. In that case the API won't updated them.
 
-## Example 3 - update a municipal indicator using `curl` (JSON variant)
+## Example 2 - update a municipal indicator using `curl` (JSON variant)
 
 This example is similar to example 1. Here the data is sent in JSON format.
 
@@ -176,7 +176,7 @@ curl https://odslocal.pt/api/v3/indicator/${INDICATOR_ID} \
 
 
 
-## Example 4 - update a municipal indicator using `fetch()` in the browser
+## Example 3 - update a municipal indicator using `fetch()` in the browser
 
 This is an alternative way to use the API. In this case the request is sent directly from the browser using the [`fetch` API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API), which is globally available in the browser. It can be tested by simply opening the browser devtools and copy-pasting the code below in the console tab:
 
@@ -211,4 +211,4 @@ updateIndicator();
 
 ```
 
-**NOTE:** when using `fetch()` the secret UUID can be easily found by the user (looking at the network activity in devtools). Since the UUID is a "bearer token", anyone who knows it is able to update the municipal indicators. So this example is useful to make a quick test for the API, but it's not recommended to use in production. The requests for the API should always to sent from a server environment.
+**NOTE:** when using `fetch()` the secret UUID can be easily found by the user (looking at the network activity in devtools). Since the UUID is a "bearer token", anyone who knows it is able to update the municipal indicators. So this example is useful to make a quick test for the API, but it's not recommended for use in production. The requests for the API should always to sent from a server environment.
