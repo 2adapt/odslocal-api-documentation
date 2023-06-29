@@ -62,7 +62,7 @@ curl https://odslocal.pt/api/v3/indicator/%INDICATOR_ID% ^
 
 ```
 
-**NOTE:** by default, `curl` will add the header "content-type: x-www-form-urlencoded" when sending data. As an alternative, we can send the data in JSON format by explicitely using the header "content-type: application/json". See example 3 below for more details.
+**NOTE:** by default, `curl` will add the header `content-type: x-www-form-urlencoded` when sending data. As an alternative, we can send the data in JSON format by explicitely using the header `content-type: application/json`. See example 3 below for more details.
 
 
 
@@ -70,7 +70,7 @@ curl https://odslocal.pt/api/v3/indicator/%INDICATOR_ID% ^
 
 ## Authorization
 
-The ODSlocal API uses a simple "bearer token" authentication scheme. This means that the HTTP request must send a "authorization" header like this: `authorization: bearer {token}`, where `{token}` should be replaced with a secret UUID string provided by ODSlocal. 
+The ODSlocal API uses a simple "bearer token" authentication scheme. This means that the HTTP request must send a `authorization` header like this: `authorization: bearer {token}`, where `{token}` should be replaced with a secret UUID string provided by ODSlocal. 
 
 The following links have more details about the concept of "Bearer authentication": 
 
@@ -79,18 +79,20 @@ The following links have more details about the concept of "Bearer authenticatio
 
 
 
-## Indicator identification in the URL
+## API endpoint to update an existing indicator
 
-The URL endpoint to update an indicator is `PATCH /api/v3/indicator/{indicator_id}`. The `{indicator_id}` segment should be replaced with the id (a number) relative to some municipal indicator. This id can be obtained in the ODSlocal backoffice, as shown in the printscreen below:
+The API endpoint to update an indicator is `PATCH /api/v3/indicator/{indicator_id}`, where the `{indicator_id}` segment should be replaced with the id (a number) relative to some municipal indicator. This id can be obtained in the ODSlocal backoffice, as shown in the printscreen below:
 
 ![backoffice_identificador](https://github.com/2adapt/odslocal-api-documentation/assets/2184309/1e0fefa2-c7ba-4952-bb46-fe1492c23b8a)
 
 
-## Creating a new indicator using the API
+## API endpoint to create a new indicator
 
-The endpoint above (`PATCH /api/v3/indicator/{indicator_id}`) is able to update some municipal indicator **that already exists in ODSlocal**. That indicator can be created manually in the backoffice (the fields can be left empty). 
+The endpoint in the previous section is able to update a municipal indicator **that already exists in ODSlocal**. That indicator can be created manually in the backoffice (the fields can be left empty). 
 
-However the API can also be used to create an new (empty) indicator using this other endpoint:
+To create an new (empty) indicator, this other endpoint should be used: `POST /api/v3/indicator`.
+
+Here is an example:
 
 ```shell
 
@@ -102,8 +104,6 @@ curl https://odslocal.pt/api/v3/indicator \
 
 ```
 
-**NOTE:** in this case the HTTP method is `POST` instead of `PATCH`, and there is no need to send any payload data in the body (it will be ignored).
-
 The response will be something like this:
 ```
 { 
@@ -112,7 +112,11 @@ The response will be something like this:
 }
 ```
 
-This means that a new (empty) indicator was created. The numeric value in `indicator_id` is the id that should be used in the `PATCH /api/v3/indicator/{indicator_id}` endpoint (as described above).
+This means that a new (empty) indicator was created. The numeric value in `indicator_id` is the id that should be used in the subsequent requests to the `PATCH /api/v3/indicator/{indicator_id}` endpoint (as described in the previous section).
+
+**NOTE:** in this endpoint the HTTP method is `POST` instead of `PATCH`, and there is no need to send any payload data in the body (it will be ignored).
+
+
 
 ## Data fields
 
