@@ -12,19 +12,18 @@ ODSlocal provides an HTTP API to allow a direct communication between an interna
 
 
 
-## Example 1 - update a municipal indicator using `curl`
+## Example 1 - update a municipal indicator using [`curl`](https://everything.curl.dev/get)
 
-This example should be executed in a server environment where the popular `curl` utility is assumed to be available in the command line:
-
+This example should be executed in a Unix shell:
 
 ```shell
 
-export INDICATOR_ID="123"
-export ACCESS_TOKEN="84fbddde-c09b-47e8-a7b7-2f0ce465e694"
+export INDICATOR_ID=123
+export ACCESS_TOKEN=00000000-0000-0000-0000-000000000000
 
 curl https://odslocal.pt/api/v3/indicator/${INDICATOR_ID} \
 --request PATCH \
---header "authorization: Bearer ${ACCESS_TOKEN}" \
+--header "authorization: bearer ${ACCESS_TOKEN}" \
 --data "title=the title of the indicator" \
 --data "goal_code=1" \
 --data "target_code=1.1" \
@@ -37,10 +36,33 @@ curl https://odslocal.pt/api/v3/indicator/${INDICATOR_ID} \
 --data "value_2021=222" \
 --data "value_2022=333"
 
+```
+
+If using a Command Prompt in a Windows system, the same example would be:
+
+```shell
+
+set INDICATOR_ID=123
+set ACCESS_TOKEN=00000000-0000-0000-0000-000000000000
+
+curl https://odslocal.pt/api/v3/indicator/%INDICATOR_ID% ^
+--request PATCH ^
+--header "authorization: bearer %ACCESS_TOKEN%" ^
+--data "title=the title of the indicator" ^
+--data "goal_code=1" ^
+--data "target_code=1.1" ^
+--data "metadata_url=https://something.com" ^
+--data "metadata_unit=something" ^
+--data "metadata_notes=some notes" ^
+--data "metadata_source=the source" ^
+--data "metadata_updated_at=2023-01-01" ^
+--data "value_2020=111" ^
+--data "value_2021=222" ^
+--data "value_2022=333"
 
 ```
 
-**NOTE:** by default, `curl` will add the header "content-type: x-www-form-urlencoded" when sending data. Alternatively we can send the data in JSON format by explicitely using the header "content-type: application/json". See example 3 below for more details.
+**NOTE:** by default, `curl` will add the header "content-type: x-www-form-urlencoded" when sending data. As an alternative, we can send the data in JSON format by explicitely using the header "content-type: application/json". See example 3 below for more details.
 
 
 
@@ -50,73 +72,86 @@ curl https://odslocal.pt/api/v3/indicator/${INDICATOR_ID} \
 
 The ODSlocal API uses a simple "bearer token" authentication scheme. This means that the HTTP request must send a "authorization" header like this: `authorization: bearer {token}`, where `{token}` should be replaced with a secret UUID string provided by ODSlocal. 
 
-The following page has more details about the concept of "Bearer authentication": 
+The following links have more details about the concept of "Bearer authentication": 
 
 - [Swagger OpenAPI Guide > Authentication > Bearer Authentication](https://swagger.io/docs/specification/authentication/bearer-authentication/)
-- [The OAuth 2.0 Authorization Framework: Bearer Token Usage](https://datatracker.ietf.org/doc/html/rfc6750)
+- [The OAuth 2.0 Authorization Framework: bearer Token Usage](https://datatracker.ietf.org/doc/html/rfc6750)
 
 
 
 ## Indicator identification in the URL
 
-The URL endpoint to update an indicator has the form `/api/v3/indicator/{indicator_id}`. The `{indicator_id}` segment should be replaced with the id (a number) relative to some municipal indicator. This id can be obtained in the ODSlocal backoffice, as shown in the printscreen below:
+The URL endpoint to update an indicator is `PATCH /api/v3/indicator/{indicator_id}`. The `{indicator_id}` segment should be replaced with the id (a number) relative to some municipal indicator. This id can be obtained in the ODSlocal backoffice, as shown in the printscreen below:
 
 ![backoffice_identificador](https://github.com/2adapt/odslocal-api-documentation/assets/2184309/1e0fefa2-c7ba-4952-bb46-fe1492c23b8a)
 
 
 ## Creating a new indicator using the API
 
-The endpoint above (`/api/v3/indicator/{indicator_id}`) is able to update data of some municipal indicator **that already exists in ODSlocal**. That indicator can be created manually in the backoffice (the fields can be left empty). 
+The endpoint above (`PATCH /api/v3/indicator/{indicator_id}`) is able to update some municipal indicator **that already exists in ODSlocal**. That indicator can be created manually in the backoffice (the fields can be left empty). 
 
-However it is also possible to create an new (empty) indicator using this other endpoint:
+However the API can also be used to create an new (empty) indicator using this other endpoint:
 
 ```shell
 
-export ACCESS_TOKEN="2dda90ee-8da5-427f-a9db-7c79273c0ada"
+export ACCESS_TOKEN=00000000-0000-0000-0000-000000000000
 
 curl https://odslocal.pt/api/v3/indicator \
 --request POST \
---header "authorization: Bearer ${ACCESS_TOKEN}"
+--header "authorization: bearer ${ACCESS_TOKEN}"
 
 ```
 
-**NOTE:** in this case the HTTP method is `POST` instead of `PATCH`, and there no payload data in the body.
+**NOTE:** in this case the HTTP method is `POST` instead of `PATCH`, and there is no need to send any payload data in the body (it will be ignored).
 
 The response will be something like this:
 ```
-{ "success": true, "indicator_id": 124 }
+{ 
+  "success": true, 
+  "indicator_id": 124 
+}
 ```
 
-This means that a new (empty) indicator was created. The numeric value in `indicator_id` is the id that should be used in the `/api/v3/indicator/{indicator_id}` endpoint (as described above).
+This means that a new (empty) indicator was created. The numeric value in `indicator_id` is the id that should be used in the `PATCH /api/v3/indicator/{indicator_id}` endpoint (as described above).
 
-## Fields
+## Data fields
 
-The body of the `PATCH` request should have the data to be updated. These are the available fields:
+The body of the `PATCH` request should have the data relative to the indicator that is being updated. These are the available fields:
 
-- `title`: a string (maximum of 200 characters)
-- `goal_code`: a string relative to one of the goals in the SDG framework (example: "17", which is relative to SDG 17 - https://www.globalgoals.org/goals/17-partnerships-for-the-goals/)
-- `target_code`: a valid SDG target associated to the goal_code (example: "17.1")
+Basic fields:
+
+- `title`: a string (maximum of 500 characters)
+- `goal_code`: a string relative to one of the goals in the SDG framework (example: "14", which is relative to ["SDG 14 - Life Below Water"](https://www.globalgoals.org/goals/))
+- `target_code`: a valid SDG target associated to the value in `goal_code` (example: if `goal_code` is "14", then `target_code` could "14.2", which is relative to ["Target 14.2: Protect and Restore Ecosystems"](https://www.globalgoals.org/goals/14-life-below-water/))
 - `is_visible`: true or false
+- `chart_type`: one of "lines" or "bars" (this will be the default chart type, but the user is always able to change it in the frontend)
 - `internal_notes`: a string (maximum of 1000 characters)
-- `target_direction`: one of "higher" or "lower" (for more details see ...)
-- `target_value`: a number
-- `target_criterion`: one of "a", "b" or "d"; default is "d" (for more details see ...)
-- `use_for_chart`: true or false
-- `chart_type`: one of "lines" or "bars"
-- `metadata_url`: a string (maximum of 200 characters)
-- `metadata_unit`: a string (maximum of 200 characters)
-- `metadata_notes`: a string (maximum of 1000 characters)
-- `metadata_source`: a string (maximum of 200 characters)
-- `metadata_updated_at`: a string in ISO format (example: '2000-01-01')
-- `value_2010`: a number; if the value is not known can be null
-- `note_2010`: a note associated to this year
+
+Fields related to the target value:
+
+- `target_value`: a number (the value that the municipality wants to achieve in 2030)
+- `target_direction`: one of "higher" or "lower" ("higher" means that "increasing values are better"; "lower" means that "decreasing values are better"); this field will be used only if `target_value` is also being used;
+- `target_criterion`: one of "a", "b" or "d"; default is "d" (for more details [read here](https://odslocal.pt/perguntas-frequentes#valores_base_e_valores_meta)); this field will be used only if `target_value` is also being used;
+
+Fields related to the actual values (one value per year)
+
+- `value_2010`: a number (the value of this indicator for the year 2010; if it is not known, should be null)
+- `note_2010`: a string (some observation note related to 2010; maximum of 500 characters)
 - `value_2011`: ibidem
 - `note_2011`: ibidem
 - (...)
 - `value_2022`: ibidem
 - `note_2022`: ibidem
 
-Any of these fields can be omitted. In that case the API won't updated that field.
+Fields related to the metadata:
+
+- `metadata_notes`: a string (maximum of 2000 characters)
+- `metadata_source`: a string (maximum of 500 characters)
+- `metadata_url`: a string (maximum of 500 characters)
+- `metadata_unit`: a string (maximum of 500 characters)
+- `metadata_updated_at`: a string that describes a date in ISO format (example: '2023-01-01')
+
+Any of the fields described above can be omitted. In that case the API won't updated them.
 
 ## Example 3 - update a municipal indicator using `curl` (JSON variant)
 
@@ -124,12 +159,12 @@ This example is similar to example 1. Here the data is sent in JSON format.
 
 ```shell
 
-export INDICATOR_ID="123"
-export ACCESS_TOKEN="84fbddde-c09b-47e8-a7b7-2f0ce465e694"
+export INDICATOR_ID=123
+export ACCESS_TOKEN=00000000-0000-0000-0000-000000000000
 
 curl https://odslocal.pt/api/v3/indicator/${INDICATOR_ID} \
 --request PATCH \
---header "authorization: Bearer ${ACCESS_TOKEN}" \
+--header "authorization: bearer ${ACCESS_TOKEN}" \
 --header "content-type: application/json" \
 --data '{"title":"the title can have spaces","goal_code":"1","target_code":"1.1"}'
 
@@ -139,32 +174,32 @@ curl https://odslocal.pt/api/v3/indicator/${INDICATOR_ID} \
 
 ## Example 4 - update a municipal indicator using `fetch()` in the browser
 
-This is an alternative way to use the API. In this case the PATCH request is sent directly from the browser using the `fetch` function, which is globally available in the browser. It can be tested by simply opening the browser devtools and copy-pasting the code below:
+This is an alternative way to use the API. In this case the request is sent directly from the browser using the [`fetch` API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API), which is globally available in the browser. It can be tested by simply opening the browser devtools and copy-pasting the code below in the console tab:
 
 ```js
 async function updateIndicator() {
 
-	const ACCESS_TOKEN = '84fbddde-c09b-47e8-a7b7-2f0ce465e694';
-	const INDICATOR_ID = 123;
+	let ACCESS_TOKEN = '00000000-0000-0000-0000-000000000000';
+	let INDICATOR_ID = 123;
 
-	const data = {
-		title: 'título do indicador atualizado pela API',
+	let data = {
+		title: 'title updated using fetch',
 		goal_code: '2',
 		target_code: '2.1',
 		value_2022: 456.7,
-		note_2022: 'valor provisório',
+		note_2022: 'something',
 	};
 
 	let res = await fetch(`https://odslocal.pt/api/v3/indicator/${INDICATOR_ID}`, {
 		method: 'PATCH',
 		headers: {
 			'content-type': 'application/json',
-			'authorization': `Bearer ${ACCESS_TOKEN}`
+			'authorization': `bearer ${ACCESS_TOKEN}`
 		},
 		body: JSON.stringify(data),
 	});
 
-	resData = await res.json();
+	let resData = await res.json();
 	console.log(resData)
 }
 
@@ -172,6 +207,4 @@ updateIndicator();
 
 ```
 
-**NOTE:** when using `fetch` the secret UUID can be easily found by the user (looking at the network activity in devtools), so this example is not recommended. Since the UUID is a "bearer token", anyone who knows it is able to update the municipal indicators. So in principle it should be used only to make a simplequickly test the API. 
-
-
+**NOTE:** when using `fetch()` the secret UUID can be easily found by the user (looking at the network activity in devtools). Since the UUID is a "bearer token", anyone who knows it is able to update the municipal indicators. So this example is useful to make a quick test for the API, but it's not recommended to use in production. The requests for the API should always to sent from a server environment.
