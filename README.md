@@ -183,6 +183,10 @@ This is an alternative way to use the API. In this case the request is sent dire
 ```js
 async function updateIndicator() {
 
+	if (!window.location.protocol.startsWith('http')) {
+		throw new Error('To make a fetch request it is necessary that the browser has some website loaded (example https://odslocal.pt)');
+	}
+
 	let ACCESS_TOKEN = '00000000-0000-0000-0000-000000000000';
 	let INDICATOR_ID = 123;
 
@@ -211,4 +215,6 @@ updateIndicator();
 
 ```
 
-**NOTE:** when using `fetch()` the secret UUID can be easily found by the user (looking at the network activity in devtools). Since the UUID is a "bearer token", anyone who knows it is able to update the municipal indicators. So this example is useful to make a quick test for the API, but it's not recommended for use in production. The requests for the API should always to sent from a server environment.
+**NOTE:** the browser will make the re
+
+When using `fetch()` the secret UUID can be easily found by the user (looking at the network activity in devtools). Since the UUID is a "bearer token", anyone who knows it is able to update the municipal indicators. So this example is useful to make a quick test for the API, but it's not recommended for use in production. The requests for the API should always to sent from a server environment.
