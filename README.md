@@ -70,7 +70,7 @@ curl https://odslocal.pt/api/v3/indicator/%INDICATOR_ID% ^
 
 ## Authorization
 
-The ODSlocal API uses a simple "bearer token" authentication scheme. This means that the HTTP request must send a `authorization` header like this: `authorization: bearer {token}`, where `{token}` should be replaced with a secret UUID string provided by ODSlocal. 
+The ODSlocal API uses a simple "bearer token" authentication scheme. This means that the HTTP request must send a `authorization` header like this: `authorization: bearer {access_token}`, where `{access_token}` should be replaced with a secret UUID provided by ODSlocal. 
 
 The following links have more details about the concept of "Bearer authentication": 
 
