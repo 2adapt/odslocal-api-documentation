@@ -215,6 +215,4 @@ updateIndicator();
 
 ```
 
-**NOTE:** the browser will make the re
-
 When using `fetch()` the secret UUID can be easily found by the user (looking at the network activity in devtools). Since the UUID is a "bearer token", anyone who knows it is able to update the municipal indicators. So this example is useful to make a quick test for the API, but it's not recommended for use in production. The requests for the API should always to sent from a server environment.
