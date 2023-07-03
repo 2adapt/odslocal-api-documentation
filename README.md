@@ -17,6 +17,7 @@ ODSlocal provides an HTTP API to allow a direct communication between an interna
 This example should be executed in a Unix shell:
 
 ```shell
+# replace the values in the ACCESS_TOKEN and INDICATOR_ID environment variables
 
 export INDICATOR_ID=123
 export ACCESS_TOKEN=00000000-0000-0000-0000-000000000000
@@ -41,6 +42,7 @@ curl https://odslocal.pt/api/v3/indicator/${INDICATOR_ID} \
 If using a Command Prompt in a Windows system, the same example would be:
 
 ```shell
+# replace the values in the ACCESS_TOKEN and INDICATOR_ID environment variables
 
 set INDICATOR_ID=123
 set ACCESS_TOKEN=00000000-0000-0000-0000-000000000000
@@ -95,6 +97,7 @@ To create an new (empty) indicator using the API, this other endpoint should be 
 Here is an example:
 
 ```shell
+# replace the values in the ACCESS_TOKEN and INDICATOR_ID environment variables
 
 export ACCESS_TOKEN=00000000-0000-0000-0000-000000000000
 
@@ -162,6 +165,7 @@ Any of the fields described above can be omitted. In that case the API won't upd
 This example is similar to example 1. Here the data is sent in JSON format.
 
 ```shell
+# replace the values in the ACCESS_TOKEN and INDICATOR_ID environment variables
 
 export INDICATOR_ID=123
 export ACCESS_TOKEN=00000000-0000-0000-0000-000000000000
@@ -181,14 +185,16 @@ curl https://odslocal.pt/api/v3/indicator/${INDICATOR_ID} \
 This is an alternative way to use the API. In this case the request is sent directly from the browser using the [`fetch` API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API), which is globally available in the browser. It can be tested by simply opening the browser devtools and copy-pasting the code below in the console tab:
 
 ```js
-async function updateIndicator() {
+// replace the values in the ACCESS_TOKEN and INDICATOR_ID variables
 
-	if (!window.location.protocol.startsWith('http')) {
-		throw new Error('To make a fetch request it is necessary that the browser has some website loaded (example https://odslocal.pt)');
-	}
+async function updateIndicator() {
 
 	let ACCESS_TOKEN = '00000000-0000-0000-0000-000000000000';
 	let INDICATOR_ID = 123;
+
+	if (!window.location.protocol.startsWith('http')) {
+		throw new Error('To make a fetch request it is necessary that the browser has some website loaded (example: https://odslocal.pt)');
+	}
 
 	let data = {
 		title: 'title updated using fetch',
