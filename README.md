@@ -198,17 +198,23 @@ async function updateIndicator() {
 		note_2022: 'something',
 	};
 
-	let res = await fetch(`https://odslocal.pt/api/v3/indicator/${INDICATOR_ID}`, {
-		method: 'PATCH',
-		headers: {
-			'content-type': 'application/json',
-			'authorization': `bearer ${ACCESS_TOKEN}`
-		},
-		body: JSON.stringify(data),
-	});
+	try {
+		let res = await fetch(`https://odslocal.pt/api/v3/indicator/${INDICATOR_ID}`, {
+			method: 'PATCH',
+			headers: {
+				'content-type': 'application/json',
+				'authorization': `bearer ${ACCESS_TOKEN}`
+			},
+			body: JSON.stringify(data),
+		});
 
-	let resData = await res.json();
-	console.log(resData)
+		let resData = await res.json();
+		console.log(resData)
+	}
+	catch(err) {
+		console.error(err);
+	}
+
 }
 
 updateIndicator();
