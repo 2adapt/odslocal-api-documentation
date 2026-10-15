@@ -1,0 +1,62 @@
+{
+  "parameters": {
+    "lang" : {
+      "name"  : "lang",
+      "in"    : "query",
+      "schema": { "type": "string", "enum": ["pt", "en"], "default": "pt" }
+    },
+    "dico" : {
+      "name"       : "dico",
+      "in"         : "query",
+      "description": "Municipality code (DICO code)",
+      "schema"     : {"type": "string"}
+    },
+    "sort" : {
+      "name"  : "sort",
+      "in"    : "query",
+      "schema": { "type": "string", "enum": ["created_at", "updated_at"], "default": "created_at" }
+    },
+    "order": {
+      "name"  : "order",
+      "in"    : "query",
+      "schema": { "type": "string", "enum": ["asc", "desc"], "default": "desc" }
+    },
+    "limit": {
+      "name"  : "limit",
+      "in"    : "query",
+      "schema": {"type": "integer", "minimum": 1, "maximum": 1000, "default": 100}
+    },
+    "page" : { 
+      "name": "page", 
+      "in": "query", 
+      "schema": {"type": "integer", "minimum": 1, "maximum": 10, "default": 1} 
+    }
+  },
+  "schemas"   : {
+    "Error"    : {
+      "type"      : "object",
+      "required"  : ["message"],
+      "properties": { "message": {"type": "string"}, "code": {"type": "string"} }
+    },
+    "responses": {
+      "BadRequest"  : {
+        "description": "Invalid query parameters",
+        "content"    : {
+          "application/json": { "schema": {"$ref": "#/schemas/Error"} }
+        }
+      },
+      "Unauthorized": {
+        "description": "Missing or invalid API key",
+        "content"    : {
+          "application/json": { "schema": {"$ref": "#/schemas/Error"} }
+        }
+      },
+      "NotFound"    : {
+        "description": "Record not found",
+        "content"    : {
+          "application/json": { "schema": {"$ref": "#/schemas/Error"} }
+        }
+      }
+    }
+  }
+}

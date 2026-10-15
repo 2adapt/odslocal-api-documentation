@@ -1,0 +1,71 @@
+{
+  "list": {
+    "get": {
+      "tags": ["Projects"],
+      "summary": "List projects",
+      "operationId": "listProjects",
+      "parameters": [
+        { "$ref": "common.json#/parameters/DICO" },
+        { "$ref": "common.json#/parameters/sdg" },
+        { "$ref": "common.json#/parameters/Limit" },
+        { "$ref": "common.json#/parameters/Offset" }
+      ],
+      "responses": {
+        "200": {
+          "description": "A page of projects",
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/schemas/ProjectList" }
+            }
+          }
+        },
+        "400": { "$ref": "common.json#/responses/BadRequest" },
+        "401": { "$ref": "common.json#/responses/Unauthorized" }
+      }
+    }
+  },
+  "detail": {
+    "get": {
+      "tags": ["Projects"],
+      "summary": "Get one project",
+      "operationId": "getProject",
+      "parameters": [{ "$ref": "common.json#/parameters/Id" }],
+      "responses": {
+        "200": {
+          "description": "The project",
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/schemas/Project" }
+            }
+          }
+        },
+        "404": { "$ref": "common.json#/responses/NotFound" }
+      }
+    }
+  },
+  "schemas": {
+    "Project": {
+      "type": "object",
+      "required": ["id", "title"],
+      "properties": {
+        "id": { "type": "integer" },
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "municipality": { "type": "string" },
+        "sdgs": {
+          "type": "array",
+          "items": { "type": "integer", "minimum": 1, "maximum": 17 }
+        },
+        "start_year": { "type": "integer" },
+        "end_year": { "type": "integer", "nullable": true }
+      }
+    },
+    "ProjectList": {
+      "type": "object",
+      "properties": {
+        "data": { "type": "array", "items": { "$ref": "#/schemas/Project" } },
+        "meta": { "$ref": "common.json#/schemas/Pagination" }
+      }
+    }
+  }
+}

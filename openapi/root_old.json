@@ -1,0 +1,26 @@
+{
+	"openapi": "3.0.0",
+	"info": {
+		"title": "API-ODSlocal-test",
+		"version": "1.0.0"
+	},
+	"servers": [
+		{
+			"url": "https://odslocal.pt"
+		}
+	],
+	"paths": {
+		"/BestPractices": {
+			"get": {
+				"summary": "Get all Best Practices Data",
+				"tags": "Best Practices",
+				"responses": {
+          "200": {
+            "description": "OK",
+			"headers": "Blabla"
+          }
+		}
+		}
+	}
+}
+}

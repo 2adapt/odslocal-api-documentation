@@ -1,0 +1,70 @@
+{
+  "list": {
+    "get": {
+      "tags": ["Indicators"],
+      "summary": "List indicators",
+      "operationId": "listIndicators",
+      "parameters": [
+        { "$ref": "common.json#/parameters/Municipality" },
+        { "$ref": "common.json#/parameters/Sdg" },
+        { "$ref": "common.json#/parameters/Year" },
+        { "$ref": "common.json#/parameters/Limit" },
+        { "$ref": "common.json#/parameters/Offset" }
+      ],
+      "responses": {
+        "200": {
+          "description": "A page of indicators",
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/schemas/IndicatorList" }
+            }
+          }
+        },
+        "400": { "$ref": "common.json#/responses/BadRequest" },
+        "401": { "$ref": "common.json#/responses/Unauthorized" }
+      }
+    }
+  },
+  "detail": {
+    "get": {
+      "tags": ["Indicators"],
+      "summary": "Get one indicator record",
+      "operationId": "getIndicator",
+      "parameters": [{ "$ref": "common.json#/parameters/Id" }],
+      "responses": {
+        "200": {
+          "description": "The indicator record",
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/schemas/Indicator" }
+            }
+          }
+        },
+        "404": { "$ref": "common.json#/responses/NotFound" }
+      }
+    }
+  },
+  "schemas": {
+    "Indicator": {
+      "type": "object",
+      "required": ["id", "sdg", "municipality"],
+      "properties": {
+        "id": { "type": "integer" },
+        "code": { "type": "string", "description": "Indicator code" },
+        "name": { "type": "string" },
+        "sdg": { "type": "integer", "minimum": 1, "maximum": 17 },
+        "municipality": { "type": "string" },
+        "year": { "type": "integer" },
+        "value": { "type": "number", "nullable": true },
+        "unit": { "type": "string" }
+      }
+    },
+    "IndicatorList": {
+      "type": "object",
+      "properties": {
+        "data": { "type": "array", "items": { "$ref": "#/schemas/Indicator" } },
+        "meta": { "$ref": "common.json#/schemas/Pagination" }
+      }
+    }
+  }
+}

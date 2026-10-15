@@ -1,18 +1,36 @@
 {
-	"openapi": "3.0.0",
-	"info": {
-		"version": "1.0.0",
-		"title": "API-ODSlocal"
-	},
-	"servers": [
-		{
-			"url": "https://odslocal.pt"
-		}
-	],
-	"paths": {
-	},
-	"components": {
-		"schemas": {
-		}
-	}
+  "openapi": "3.2.0",
+  "info"      : {
+    "title": "ODSlocal API",
+    "description": "Read access to the Indicators, Good Practices and Projects databases used for municipal SDG monitoring.",
+    "version": "1.0.0"
+  },
+  "servers": [ {"url": "https://odslocal.pt/api/v4", "description": "Production (placeholder)"} ],
+  "tags"      : [
+    {"name": "Indicators",     "description": "SDG indicator values per municipality and year"},
+    {"name": "Good Practices", "description": "Documented good practices linked to SDGs"      },
+    {"name": "Projects",       "description": "Municipal projects linked to SDGs"             }
+  ],
+  "security": [ {"ApiKeyAuth": []} ],
+  "paths"     : {
+    "/indicators"         : {"$ref": "indicators.json#/list"      },
+    "/indicators/{id}"    : {"$ref": "indicators.json#/detail"    },
+    "/good-practices"     : {"$ref": "good-practices.json#/list"  },
+    "/good-practices/{id}": {"$ref": "good-practices.json#/detail"},
+    "/projects"           : {"$ref": "projects.json#/list"        },
+    "/projects/{id}"      : {"$ref": "projects.json#/detail"      }
+  },
+  "components": {
+    "securitySchemes": { "ApiKeyAuth": {"type": "apiKey", "in": "header", "name": "X-API-Key"} },
+    "schemas"        : {
+      "Indicator"       : {"$ref": "indicators.json#/schemas/Indicator"           },
+      "IndicatorList"   : {"$ref": "indicators.json#/schemas/IndicatorList"       },
+      "BestPractice"    : {"$ref": "good-practices.json#/schemas/GoodPractice"    },
+      "BestPracticeList": {"$ref": "good-practices.json#/schemas/GoodPracticeList"},
+      "Project"         : {"$ref": "projects.json#/schemas/Project"               },
+      "ProjectList"     : {"$ref": "projects.json#/schemas/ProjectList"           },
+      "Pagination"      : {"$ref": "common.json#/schemas/Pagination"              },
+      "Error"           : {"$ref": "common.json#/schemas/Error"                   }
+    }
+  }
 }

@@ -1,0 +1,93 @@
+{
+  "list"   : {
+    "get": {
+      "tags"       : ["Good Practices"],
+      "summary"    : "List good practices",
+      "operationId": "ListGoodPractices",
+      "parameters" : [
+        {"$ref": "common.json#/parameters/lang" },
+        {"$ref": "common.json#/parameters/dico" },
+        {"$ref": "common.json#/parameters/sort" },
+        {"$ref": "common.json#/parameters/order"},
+        {"$ref": "common.json#/parameters/limit"},
+        {"$ref": "common.json#/parameters/page" }
+      ],
+      "responses"  : {
+        "200": {
+          "description": "A page of good practices",
+          "content"    : {
+            "application/json": { "schema": {"$ref": "#/schemas/GoodPracticeList"} }
+          }
+        },
+        "400": {"$ref": "common.json#/responses/BadRequest"  },
+        "401": {"$ref": "common.json#/responses/Unauthorized"}
+      }
+    }
+  },
+  "detail" : {
+    "get": {
+      "tags"       : ["Good Practices"],
+      "summary"    : "Get one good practice",
+      "operationId": "GetGoodPractice",
+      "parameters" : [ {"$ref": "common.json#/parameters/Id"} ],
+      "responses"  : {
+        "200": {
+          "description": "The good practice",
+          "content"    : {
+            "application/json": { "schema": {"$ref": "#/schemas/GoodPractice"} }
+          }
+        },
+        "404": {"$ref": "common.json#/responses/NotFound"}
+      }
+    }
+  },
+  "schemas": {
+    "GoodPractice"    : {
+      "type"      : "object",
+      "required"  : ["id", "title"],
+      "properties": {
+        "id"                    : {"type": "integer"},
+        "name"                  : {"type": "string"},
+        "description"           : {"type": "string"},
+        "dico"                  : {"type": "string"},
+        "url_website"           : { "type": ["string", "null"], "format": "uri" },
+        "url_social"            : { "type": ["string", "null"], "format": "uri" },
+        "url_video"             : { "type": ["string", "null"], "format": "uri" },
+        "url_other"             : { "type": ["string", "null"], "format": "uri" },
+        "visibility"            : {"type": "boolean"},
+        "keywords"              : { "type": "array", "items": {"type": "string"} },
+        "goal_1"                : {"type": "integer"},
+        "goal_2"                : {"type": "integer"},
+        "goal_3"                : {"type": "integer"},
+        "goal_4"                : {"type": "integer"},
+        "goal_5"                : {"type": "integer"},
+        "goal_6"                : {"type": "integer"},
+        "goal_7"                : {"type": "integer"},
+        "goal_8"                : {"type": "integer"},
+        "goal_9"                : {"type": "integer"},
+        "goal_10"               : {"type": "integer"},
+        "goal_11"               : {"type": "integer"},
+        "goal_12"               : {"type": "integer"},
+        "goal_13"               : {"type": "integer"},
+        "goal_14"               : {"type": "integer"},
+        "goal_15"               : {"type": "integer"},
+        "goal_16"               : {"type": "integer"},
+        "goal_17"               : {"type": "integer"},
+        "goal_list"             : { "type": "array", "items": {"type": "integer", "minimum": -5, "maximum": 5} },
+        "image_list_sm"         : { "type": "array", "items": {"type": "string", "format": "uri"} },
+        "image_list_md"         : { "type": "array", "items": {"type": "string", "format": "uri"} },
+        "image_list_lg"         : { "type": "array", "items": {"type": "string", "format": "uri"} },
+        "image_list_description": { "type": "array", "items": {"type": "string", "format": "uri"} },
+        "impact_count"          : { "type": "array", "items": {"type": "string", "format": "uri"} },
+        "created_at"            : { "type": "string", "format": "date-time"},
+        "updated_at"            : { "type": "string", "format": "date-time"}
+      }
+    },
+    "GoodPracticeList": {
+      "type": "object",
+      "properties": {
+        "data": { "type": "array", "items": {"$ref": "#/schemas/GoodPractice"} }
+      }
+    }
+  }
+}
