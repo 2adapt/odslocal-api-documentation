@@ -5,11 +5,11 @@
       "summary": "List indicators",
       "operationId": "listIndicators",
       "parameters": [
-        { "$ref": "common.json#/parameters/Municipality" },
-        { "$ref": "common.json#/parameters/Sdg" },
-        { "$ref": "common.json#/parameters/Year" },
-        { "$ref": "common.json#/parameters/Limit" },
-        { "$ref": "common.json#/parameters/Offset" }
+        {"$ref": "common.json#/parameters/lang" },
+        {"$ref": "common.json#/parameters/dico" },
+        {"$ref": "common.json#/parameters/limit"},
+        {"$ref": "common.json#/parameters/page" },
+        {"$ref": "common.json#/parameters/sdg" }
       ],
       "responses": {
         "200": {
@@ -20,8 +20,9 @@
             }
           }
         },
-        "400": { "$ref": "common.json#/responses/BadRequest" },
-        "401": { "$ref": "common.json#/responses/Unauthorized" }
+        "400": {"$ref": "common.json#/responses/BadRequest"  },
+        "401": {"$ref": "common.json#/responses/Unauthorized"},
+        "404": {"$ref": "common.json#/responses/NotFound"}
       }
     }
   },
@@ -33,37 +34,48 @@
       "parameters": [{ "$ref": "common.json#/parameters/Id" }],
       "responses": {
         "200": {
-          "description": "The indicator record",
+          "description": "Record for one indicator",
           "content": {
             "application/json": {
               "schema": { "$ref": "#/schemas/Indicator" }
             }
           }
         },
-        "404": { "$ref": "common.json#/responses/NotFound" }
+        "400": {"$ref": "common.json#/responses/BadRequest"  },
+        "401": {"$ref": "common.json#/responses/Unauthorized"},
+        "404": {"$ref": "common.json#/responses/NotFound"}
       }
     }
   },
   "schemas": {
     "Indicator": {
       "type": "object",
-      "required": ["id", "sdg", "municipality"],
+      "required"  : ["id", "name"],
       "properties": {
-        "id": { "type": "integer" },
-        "code": { "type": "string", "description": "Indicator code" },
-        "name": { "type": "string" },
-        "sdg": { "type": "integer", "minimum": 1, "maximum": 17 },
-        "municipality": { "type": "string" },
-        "year": { "type": "integer" },
-        "value": { "type": "number", "nullable": true },
-        "unit": { "type": "string" }
+        "id"                    : {"type": "integer"},
+        "created_at"            : {"type": "string", "format": "date-time", "description": "The date the indicator was submitted, format ISO 8601."},
+        "updated_at"            : {"type": "string", "format": "date-time", "description": "The date of the last update performed on the indicator, format ISO 8601."},
+        "name"                  : {"type": "string", "description": "Indicator name"},
+        "metadata_url"          : {"type": "string"},
+        "metadata_unit"         : {"type": "string"},
+        "metadata_notes"        : {"type": "string"},
+        "metadata_source"       : {"type": "string"},
+        "metadata_updated_at"   : {"type": "string"},
+        "sdg"                   : {"type": "integer", "description": "The sdg the indicator is connected to."},
+        "sdg_target"            : {"type": "string", "description": "The target the indicator is connected to."},
+        "type"                  : {"type": "string", "enum": ["reference", "specific"], 
+                                   "description": "Indicator type, either 'reference', based on indicators of the agenda 2030, or 'specific', created by the ODSlocal platform."},
+        "target_direction"      : {"type": "string", "enum": ["higher", "lower"], "description": "Indicator direction, if values are supposed to increase or decrease."},
+        "grid_data"             : {"type": "string"},
+        "base_value"            : {"type": "double"},
+        "target_value"          : {"type": "double"},
+        "values"                : {"type": "array", "items": {"type": "double"}, "description": "An array of values along time."}
       }
     },
     "IndicatorList": {
       "type": "object",
       "properties": {
-        "data": { "type": "array", "items": { "$ref": "#/schemas/Indicator" } },
-        "meta": { "$ref": "common.json#/schemas/Pagination" }
+        "data": { "type": "array", "items": { "$ref": "#/schemas/Indicator" } }
       }
     }
   }

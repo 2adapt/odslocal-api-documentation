@@ -21,12 +21,18 @@
     "/projects/{id}"      : {"$ref": "projects.json#/detail"      }
   },
   "components": {
-    "securitySchemes": { "ApiKeyAuth": {"type": "apiKey", "in": "header", "name": "X-API-Key"} },
+    "securitySchemes": {
+    "httpBearer": {
+        "description": "Bearer token",
+        "type": "http",
+        "scheme": "Bearer"
+      }
+    },
     "schemas"        : {
       "Indicator"       : {"$ref": "indicators.json#/schemas/Indicator"           },
       "IndicatorList"   : {"$ref": "indicators.json#/schemas/IndicatorList"       },
-      "BestPractice"    : {"$ref": "good-practices.json#/schemas/GoodPractice"    },
-      "BestPracticeList": {"$ref": "good-practices.json#/schemas/GoodPracticeList"},
+      "GoodPractice"    : {"$ref": "good-practices.json#/schemas/GoodPractice"    },
+      "GoodPracticeList": {"$ref": "good-practices.json#/schemas/GoodPracticeList"},
       "Project"         : {"$ref": "projects.json#/schemas/Project"               },
       "ProjectList"     : {"$ref": "projects.json#/schemas/ProjectList"           },
       "Pagination"      : {"$ref": "common.json#/schemas/Pagination"              },

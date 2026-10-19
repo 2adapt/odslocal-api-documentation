@@ -30,6 +30,11 @@
       "name": "page", 
       "in": "query", 
       "schema": {"type": "integer", "minimum": 1, "maximum": 10, "default": 1} 
+    },
+    "sdg" : { 
+      "name": "sdg", 
+      "in": "query", 
+      "schema": {"type": "integer", "minimum": 1, "maximum": 17} 
     }
   },
   "schemas"   : {
@@ -57,6 +62,10 @@
           "application/json": { "schema": {"$ref": "#/schemas/Error"} }
         }
       }
-    }
+    },
+    "GoalScore": { "type": "integer", "minimum": -5, "maximum": 5,
+        "description": "Self assessment of the contribution to the respective goal. Can be negative." },
+    "dico": {"type": "string", 
+        "description": "A four digit code that defines the municipality, available at: https://www.dgterritorio.gov.pt/atividades/cartografia/cartografia-tematica/caop"}
   }
 }

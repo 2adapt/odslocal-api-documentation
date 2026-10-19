@@ -3,14 +3,16 @@
     "get": {
       "tags"       : ["Good Practices"],
       "summary"    : "List good practices",
-      "operationId": "ListGoodPractices",
+      "security"   : [{"httpBearer": []}],
+      "operationId": "listGoodPractices",
       "parameters" : [
         {"$ref": "common.json#/parameters/lang" },
         {"$ref": "common.json#/parameters/dico" },
         {"$ref": "common.json#/parameters/sort" },
         {"$ref": "common.json#/parameters/order"},
         {"$ref": "common.json#/parameters/limit"},
-        {"$ref": "common.json#/parameters/page" }
+        {"$ref": "common.json#/parameters/page" },
+        {"$ref": "common.json#/parameters/sdg" }
       ],
       "responses"  : {
         "200": {
@@ -20,7 +22,8 @@
           }
         },
         "400": {"$ref": "common.json#/responses/BadRequest"  },
-        "401": {"$ref": "common.json#/responses/Unauthorized"}
+        "401": {"$ref": "common.json#/responses/Unauthorized"},
+        "404": {"$ref": "common.json#/responses/NotFound"}
       }
     }
   },
@@ -28,8 +31,11 @@
     "get": {
       "tags"       : ["Good Practices"],
       "summary"    : "Get one good practice",
-      "operationId": "GetGoodPractice",
-      "parameters" : [ {"$ref": "common.json#/parameters/Id"} ],
+      "security"   : [{"httpBearer": []}],
+      "operationId": "getGoodPractice",
+      "parameters" : [ 
+        {"$ref": "common.json#/parameters/lang"} 
+      ],
       "responses"  : {
         "200": {
           "description": "The good practice",
@@ -37,6 +43,8 @@
             "application/json": { "schema": {"$ref": "#/schemas/GoodPractice"} }
           }
         },
+        "400": {"$ref": "common.json#/responses/BadRequest"},
+        "401": {"$ref": "common.json#/responses/Unauthorized"},
         "404": {"$ref": "common.json#/responses/NotFound"}
       }
     }
@@ -44,43 +52,48 @@
   "schemas": {
     "GoodPractice"    : {
       "type"      : "object",
-      "required"  : ["id", "title"],
+      "required"  : ["id", "name"],
       "properties": {
         "id"                    : {"type": "integer"},
         "name"                  : {"type": "string"},
-        "description"           : {"type": "string"},
-        "dico"                  : {"type": "string"},
-        "url_website"           : { "type": ["string", "null"], "format": "uri" },
-        "url_social"            : { "type": ["string", "null"], "format": "uri" },
-        "url_video"             : { "type": ["string", "null"], "format": "uri" },
-        "url_other"             : { "type": ["string", "null"], "format": "uri" },
-        "visibility"            : {"type": "boolean"},
-        "keywords"              : { "type": "array", "items": {"type": "string"} },
-        "goal_1"                : {"type": "integer"},
-        "goal_2"                : {"type": "integer"},
-        "goal_3"                : {"type": "integer"},
-        "goal_4"                : {"type": "integer"},
-        "goal_5"                : {"type": "integer"},
-        "goal_6"                : {"type": "integer"},
-        "goal_7"                : {"type": "integer"},
-        "goal_8"                : {"type": "integer"},
-        "goal_9"                : {"type": "integer"},
-        "goal_10"               : {"type": "integer"},
-        "goal_11"               : {"type": "integer"},
-        "goal_12"               : {"type": "integer"},
-        "goal_13"               : {"type": "integer"},
-        "goal_14"               : {"type": "integer"},
-        "goal_15"               : {"type": "integer"},
-        "goal_16"               : {"type": "integer"},
-        "goal_17"               : {"type": "integer"},
-        "goal_list"             : { "type": "array", "items": {"type": "integer", "minimum": -5, "maximum": 5} },
-        "image_list_sm"         : { "type": "array", "items": {"type": "string", "format": "uri"} },
-        "image_list_md"         : { "type": "array", "items": {"type": "string", "format": "uri"} },
-        "image_list_lg"         : { "type": "array", "items": {"type": "string", "format": "uri"} },
-        "image_list_description": { "type": "array", "items": {"type": "string", "format": "uri"} },
-        "impact_count"          : { "type": "array", "items": {"type": "string", "format": "uri"} },
-        "created_at"            : { "type": "string", "format": "date-time"},
-        "updated_at"            : { "type": "string", "format": "date-time"}
+        "description"           : {"type": "string", "description": "A text of maximum 1000 characters describing the good practice."},
+        "dico"                  : {"$ref": "common.json#/schemas/dico"},
+        "url_website"           : {"type": "string", "format": "uri", "description": "Official url of the good practice."},
+        "url_social"            : {"type": "string", "format": "uri", "description": "Social media associated with the good practice." },
+        "url_video"             : {"type": "string", "format": "uri", "description": "Video url of the good practice." },
+        "url_other"             : {"type": "string", "format": "uri", "description": "Other relevant urls associated with the good practice." },
+        "visibility"            : {"type": "boolean", "description": "If the municipality made the good practice visible to the public."},
+        "keywords"              : {"type": "array", "items": {"type": "string"} },
+        "score_sdg_1"                : {"$ref": "common.json#/schemas/GoalScore"},
+        "score_sdg_2"                : {"$ref": "common.json#/schemas/GoalScore"},
+        "score_sdg_3"                : {"$ref": "common.json#/schemas/GoalScore"},
+        "score_sdg_4"                : {"$ref": "common.json#/schemas/GoalScore"},
+        "score_sdg_5"                : {"$ref": "common.json#/schemas/GoalScore"},
+        "score_sdg_6"                : {"$ref": "common.json#/schemas/GoalScore"},
+        "score_sdg_7"                : {"$ref": "common.json#/schemas/GoalScore"},
+        "score_sdg_8"                : {"$ref": "common.json#/schemas/GoalScore"},
+        "score_sdg_9"                : {"$ref": "common.json#/schemas/GoalScore"},
+        "score_sdg_10"               : {"$ref": "common.json#/schemas/GoalScore"},
+        "score_sdg_11"               : {"$ref": "common.json#/schemas/GoalScore"},
+        "score_sdg_12"               : {"$ref": "common.json#/schemas/GoalScore"},
+        "score_sdg_13"               : {"$ref": "common.json#/schemas/GoalScore"},
+        "score_sdg_14"               : {"$ref": "common.json#/schemas/GoalScore"},
+        "score_sdg_15"               : {"$ref": "common.json#/schemas/GoalScore"},
+        "score_sdg_16"               : {"$ref": "common.json#/schemas/GoalScore"},
+        "score_sdg_17"               : {"$ref": "common.json#/schemas/GoalScore"},
+        "score_sdg_list"             : {"type": "array", 
+                                   "items": {"type": "integer", "minimum": -5, "maximum": 5},
+                                   "description": "Self assessment of the contribution to the respective goal. Can be negative."
+                                  },
+        "image_list_sm"         : {"type": "array", "items": {"type": "string", "format": "uri"}, "description": "Array of urls to small scale images." },
+        "image_list_md"         : {"type": "array", "items": {"type": "string", "format": "uri"}, "description": "Array of urls to medium scale images." },
+        "image_list_lg"         : {"type": "array", "items": {"type": "string", "format": "uri"}, "description": "Array of urls to large scale images." },
+        "image_list_description": {"type": "array", "items": { "type": "string" }, "description": "Text describing each image, in the same order as the image lists." },
+        "impact_count"          : {"type": "integer", "description": "The sum of recorded impacts." },
+        "impact_goals"          : {"type": "array", "items": {"type": "integer"}, "description": "The sdgs associated with the recorded impacts." },
+        "impact_targets"        : {"type": "array", "items": {"type": "string"}, "description": "The targets associated with the recorded impacts." },
+        "created_at"            : {"type": "string", "format": "date-time", "description": "The date the good practice was submitted, format ISO 8601."},
+        "updated_at"            : {"type": "string", "format": "date-time", "description": "The date of the last update performed on the good practice, format ISO 8601."}
       }
     },
     "GoodPracticeList": {
