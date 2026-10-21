@@ -11,6 +11,24 @@
       "description": "Municipality code (DICO code)",
       "schema"     : {"type": "string"}
     },
+    "nuts1" : {
+      "name"       : "nuts1",
+      "in"         : "query",
+      "description": "NUTS I, based on the eurostat 2024 classification: https://ec.europa.eu/eurostat/web/nuts/overview",
+      "schema"     : {"type": "string"}
+    },
+    "nuts2" : {
+      "name"       : "nuts2",
+      "in"         : "query",
+      "description": "NUTS II, based on the eurostat 2024 classification: https://ec.europa.eu/eurostat/web/nuts/overview",
+      "schema"     : {"type": "string"}
+    },
+    "nuts3" : {
+      "name"       : "nuts3",
+      "in"         : "query",
+      "description": "NUTS III, based on the eurostat 2024 classification: https://ec.europa.eu/eurostat/web/nuts/overview",
+      "schema"     : {"type": "string"}
+    },
     "sort" : {
       "name"  : "sort",
       "in"    : "query",

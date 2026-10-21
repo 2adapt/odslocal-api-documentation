@@ -7,6 +7,9 @@
       "parameters": [
         {"$ref": "common.json#/parameters/lang" },
         {"$ref": "common.json#/parameters/dico" },
+        {"$ref": "common.json#/parameters/nuts1" },
+        {"$ref": "common.json#/parameters/nuts2" },
+        {"$ref": "common.json#/parameters/nuts3" },
         {"$ref": "common.json#/parameters/limit"},
         {"$ref": "common.json#/parameters/page" },
         {"$ref": "common.json#/parameters/sdg" }
