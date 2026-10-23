@@ -72,7 +72,7 @@
         "created_at"            : {"type": "string", "format": "date-time", "description": "The date the project was submitted, format ISO 8601."},
         "updated_at"            : {"type": "string", "format": "date-time", "description": "The date of the last update performed on the project, format ISO 8601."},
         "keywords"              : {"type": "array", "items": {"type": "string"} },
-        "dico"                  : {"$ref": "common.json#/schemas/dico"},
+        "dico"                  : {"$ref": "common.json#/schemas/Dico"},
         "agent"                 : {"type": "string", "description": "The promoter of the project."},
         "url_website"           : {"type": "string", "format": "uri", "description": "Official url of the project."},
         "url_social"            : {"type": "string", "format": "uri", "description": "Social media associated with the project." },

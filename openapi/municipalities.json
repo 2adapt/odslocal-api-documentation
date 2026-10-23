@@ -1,0 +1,56 @@
+{
+  "list"   : {
+    "get": {
+      "tags"       : ["Municipalities"],
+      "summary"    : "List Municipalities",
+      "operationId": "listMunicipalities",
+      "parameters" : [
+        {"$ref": "common.json#/parameters/dico" },
+        {"$ref": "common.json#/parameters/nuts1"},
+        {"$ref": "common.json#/parameters/nuts2"},
+        {"$ref": "common.json#/parameters/nuts3"}
+      ],
+      "responses"  : {
+        "200": {
+          "description": "A page of municipality names and their corresponding DICO and NUTS codes.",
+          "content"    : {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "data": { "type": "array", "items": {"$ref": "#/schemas/Municipality"} }
+                }
+              }
+            }
+          }
+        },
+        "400": {"$ref": "common.json#/responses/BadRequest"  },
+        "401": {"$ref": "common.json#/responses/Unauthorized"},
+        "404": {"$ref": "common.json#/responses/NotFound"    }
+      }
+    }
+  },
+  "schemas": {
+    "Municipality": {
+      "type"      : "object",
+      "required"  : [],
+      "properties": {
+        "id"               : {"type": "integer"},
+        "municipality_name": {"type": "string"},
+        "municipality_code": {"type": "string", "description": "municipality_name in slug (lowercase, no accents or special characters, and words joined by hyphens)"},
+        "nuts1_name"       : {"$ref": "common.json#/schemas/Nuts"},
+        "nuts1_code"       : {"type": "string", "description": "nuts1_name in slug (lowercase, no accents or special characters, and words joined by hyphens)"},
+        "nuts1_eu_code"    : {"$ref": "common.json#/schemas/Nuts"},
+        "nuts2_name"       : {"$ref": "common.json#/schemas/Nuts"},
+        "nuts2_code"       : {"type": "string", "description": "nuts2_name in slug (lowercase, no accents or special characters, and words joined by hyphens)"},
+        "nuts2_eu_code"    : {"$ref": "common.json#/schemas/Nuts"},
+        "nuts3_name"       : {"$ref": "common.json#/schemas/Nuts"},
+        "nuts3_code"       : {"type": "string", "description": "nuts3_name in slug (lowercase, no accents or special characters, and words joined by hyphens)"},
+        "nuts3_eu_code"    : {"$ref": "common.json#/schemas/Nuts"},
+        "district_name"    : {"type": "string"},
+        "district_code"    : {"type": "string", "description": "district_name in slug (lowercase, no accents or special characters, and words joined by hyphens)"},
+        "dico"             : {"$ref": "common.json#/schemas/Dico"}
+      }
+    }
+  }
+}

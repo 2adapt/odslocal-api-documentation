@@ -9,7 +9,8 @@
   "tags"      : [
     {"name": "Indicators",     "description": "SDG indicator values per municipality and year"},
     {"name": "Good Practices", "description": "Documented good practices linked to SDGs"      },
-    {"name": "Projects",       "description": "Municipal projects linked to SDGs"             }
+    {"name": "Projects",       "description": "Municipal projects linked to SDGs"             },
+    {"name": "Municipalities", "description": "List of municipalities with respective dico and NUTS codes"}
   ],
   "security": [ {"ApiKeyAuth": []} ],
   "paths"     : {
@@ -18,7 +19,8 @@
     "/good-practices"     : {"$ref": "good-practices.json#/list"  },
     "/good-practices/{id}": {"$ref": "good-practices.json#/detail"},
     "/projects"           : {"$ref": "projects.json#/list"        },
-    "/projects/{id}"      : {"$ref": "projects.json#/detail"      }
+    "/projects/{id}"      : {"$ref": "projects.json#/detail"      },
+    "/municipalities"     : {"$ref": "municipalities.json#/list"}
   },
   "components": {
     "securitySchemes": {
@@ -30,13 +32,9 @@
     },
     "schemas"        : {
       "Indicator"       : {"$ref": "indicators.json#/schemas/Indicator"           },
-      "IndicatorList"   : {"$ref": "indicators.json#/schemas/IndicatorList"       },
       "GoodPractice"    : {"$ref": "good-practices.json#/schemas/GoodPractice"    },
-      "GoodPracticeList": {"$ref": "good-practices.json#/schemas/GoodPracticeList"},
       "Project"         : {"$ref": "projects.json#/schemas/Project"               },
-      "ProjectList"     : {"$ref": "projects.json#/schemas/ProjectList"           },
-      "Pagination"      : {"$ref": "common.json#/schemas/Pagination"              },
-      "Error"           : {"$ref": "common.json#/schemas/Error"                   }
+      "Municipality"    : {"$ref": "municipalities.json#/schemas/Municipality"               }
     }
   }
 }

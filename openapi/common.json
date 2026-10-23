@@ -5,30 +5,11 @@
       "in"    : "query",
       "schema": { "type": "string", "enum": ["pt", "en"], "default": "pt" }
     },
-    "dico" : {
-      "name"       : "dico",
-      "in"         : "query",
-      "description": "Municipality code (DICO code)",
-      "schema"     : {"type": "string"}
-    },
-    "nuts1" : {
-      "name"       : "nuts1",
-      "in"         : "query",
-      "description": "NUTS I, based on the eurostat 2024 classification: https://ec.europa.eu/eurostat/web/nuts/overview",
-      "schema"     : {"type": "string"}
-    },
-    "nuts2" : {
-      "name"       : "nuts2",
-      "in"         : "query",
-      "description": "NUTS II, based on the eurostat 2024 classification: https://ec.europa.eu/eurostat/web/nuts/overview",
-      "schema"     : {"type": "string"}
-    },
-    "nuts3" : {
-      "name"       : "nuts3",
-      "in"         : "query",
-      "description": "NUTS III, based on the eurostat 2024 classification: https://ec.europa.eu/eurostat/web/nuts/overview",
-      "schema"     : {"type": "string"}
-    },
+    "dico" : { "name": "dico",  "in": "query", "schema": {"$ref": "#/schemas/Dico"                   } },
+    "id"   : { "name": "id",    "in": "query", "schema": {                          "type": "integer"} },
+    "nuts1": { "name": "nuts1", "in": "query", "schema": {"$ref": "#/schemas/Nuts"                   } },
+    "nuts2": { "name": "nuts2", "in": "query", "schema": {"$ref": "#/schemas/Nuts"                   } },
+    "nuts3": { "name": "nuts3", "in": "query", "schema": {"$ref": "#/schemas/Nuts"                   } },
     "sort" : {
       "name"  : "sort",
       "in"    : "query",
@@ -44,16 +25,12 @@
       "in"    : "query",
       "schema": {"type": "integer", "minimum": 1, "maximum": 1000, "default": 100}
     },
-    "page" : { 
-      "name": "page", 
-      "in": "query", 
-      "schema": {"type": "integer", "minimum": 1, "maximum": 10, "default": 1} 
+    "page" : {
+      "name"  : "page",
+      "in"    : "query",
+      "schema": {"type": "integer", "minimum": 1, "maximum": 10, "default": 1}
     },
-    "sdg" : { 
-      "name": "sdg", 
-      "in": "query", 
-      "schema": {"type": "integer", "minimum": 1, "maximum": 17} 
-    }
+    "sdg"  : { "name": "sdg", "in": "query", "schema": {"type": "integer", "minimum": 1, "maximum": 17} }
   },
   "schemas"   : {
     "Error"    : {
@@ -61,29 +38,39 @@
       "required"  : ["message"],
       "properties": { "message": {"type": "string"}, "code": {"type": "string"} }
     },
-    "responses": {
-      "BadRequest"  : {
-        "description": "Invalid query parameters",
-        "content"    : {
-          "application/json": { "schema": {"$ref": "#/schemas/Error"} }
-        }
-      },
-      "Unauthorized": {
-        "description": "Missing or invalid API key",
-        "content"    : {
-          "application/json": { "schema": {"$ref": "#/schemas/Error"} }
-        }
-      },
-      "NotFound"    : {
-        "description": "Record not found",
-        "content"    : {
-          "application/json": { "schema": {"$ref": "#/schemas/Error"} }
-        }
+    "GoalScore": {
+      "type"       : "integer",
+      "minimum"    : -5,
+      "maximum"    : 5,
+      "description": "Self assessment of the contribution to the respective goal. Can be negative."
+    },
+    "Dico"     : {
+      "type": "string",
+      "description": "A four digit code that defines the municipality, available at: https://www.dgterritorio.gov.pt/atividades/cartografia/cartografia-tematica/caop"
+    },
+    "Nuts"     : {
+      "type": "string",
+      "description": "NUTS nomenclature, based on the eurostat 2024: https://ec.europa.eu/eurostat/web/nuts/overview and data from https://gisco-services.ec.europa.eu/distribution/v2/nuts/nuts-2024-files.html"
+    }
+  },
+  "responses" : {
+    "BadRequest"  : {
+      "description": "Invalid query parameters",
+      "content"    : {
+        "application/json": { "schema": {"$ref": "#/schemas/Error"} }
       }
     },
-    "GoalScore": { "type": "integer", "minimum": -5, "maximum": 5,
-        "description": "Self assessment of the contribution to the respective goal. Can be negative." },
-    "dico": {"type": "string", 
-        "description": "A four digit code that defines the municipality, available at: https://www.dgterritorio.gov.pt/atividades/cartografia/cartografia-tematica/caop"}
+    "Unauthorized": {
+      "description": "Missing or invalid API key",
+      "content"    : {
+        "application/json": { "schema": {"$ref": "#/schemas/Error"} }
+      }
+    },
+    "NotFound"    : {
+      "description": "Record not found",
+      "content"    : {
+        "application/json": { "schema": {"$ref": "#/schemas/Error"} }
+      }
+    }
   }
 }

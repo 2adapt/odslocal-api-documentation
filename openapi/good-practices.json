@@ -60,7 +60,7 @@
         "id"                    : {"type": "integer"},
         "name"                  : {"type": "string"},
         "description"           : {"type": "string", "description": "A text of maximum 1000 characters describing the good practice."},
-        "dico"                  : {"$ref": "common.json#/schemas/dico"},
+        "dico"                  : {"$ref": "common.json#/schemas/Dico"},
         "url_website"           : {"type": "string", "format": "uri", "description": "Official url of the good practice."},
         "url_social"            : {"type": "string", "format": "uri", "description": "Social media associated with the good practice." },
         "url_video"             : {"type": "string", "format": "uri", "description": "Video url of the good practice." },
