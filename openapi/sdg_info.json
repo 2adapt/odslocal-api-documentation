@@ -1,0 +1,100 @@
+{
+  "list"   : {
+    "get": {
+      "tags"       : ["SDG info"],
+      "summary"    : "List information on SDGs",
+      "operationId": "listSDG_info",
+      "parameters" : [ {"$ref": "common.json#/parameters/sdg"} ],
+      "responses"  : {
+        "200": {
+          "description": "A page of information on the sustainable develoment goals.",
+          "content"    : {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "data": { "type": "array", "items": {"$ref": "#/schemas/SDG_info"} }
+                }
+              }
+            }
+          }
+        },
+        "400": {"$ref": "common.json#/responses/BadRequest"  },
+        "401": {"$ref": "common.json#/responses/Unauthorized"},
+        "404": {"$ref": "common.json#/responses/NotFound"    }
+      }
+    }
+  },
+  "schemas": {
+    "SDG_info": {
+      "type"      : "object",
+      "required"  : [],
+      "properties": {
+        "code": {
+          "type"       : "integer",
+          "description": "Integer numeric value of the sustainable develoment goal, from 1 to 17"
+        },
+        "targets": {
+          "type"       : "array",
+          "description": "The targets related to the SDG.",
+          "items"      : {"$ref": "#/schemas/Target"}
+        },
+        "title_short": {
+          "type"       : "string",
+          "description": "Short title for the sustainable develoment goal (longest title has 44 characters)"
+        },
+        "title": {
+          "type"       : "string",
+          "description": "Full title for the sustainable develoment goal (longest title has 221 characters)"
+        },
+        "hex": {
+          "type": "string",
+          "description": "HEX code for the color associated with the sustainable develoment goal, based on UN specifications: https://www.un.org/sustainabledevelopment/news/communications-material/"
+        },
+        "color_name": {
+          "type"       : "string",
+          "description": "Name of the color associated with the sustainable develoment goal."
+        },
+        "pms": {
+          "type"       : "string",
+          "description": "Pantone Matching System code associated with the sustainable develoment goal."
+        },
+        "cmyk": {"type": "string", "description": "CMYK code associated with the sustainable develoment goal."},
+        "rgb" : {"type": "string", "description": "RGB code associated with the sustainable develoment goal." },
+        "icon": {
+          "type"  : "string",
+          "format": "uri",
+          "description": "Icon of the sdg in white on colored square, in svg format, based on UN specifications: https://www.un.org/sustainabledevelopment/news/communications-material/"
+        },
+        "icon_inverted": {
+          "type"       : "string",
+          "format"     : "uri",
+          "description": "Icon of the sdg in color on white square, in svg format."
+        },
+        "icon_inverted_transparent": {
+          "type"       : "string",
+          "format"     : "uri",
+          "description": "Icon of the sdg in color with transparent background, in svg format."
+        },
+        "icon_inverted_png": {
+          "type"       : "string",
+          "format"     : "uri",
+          "description": "Icon of the sdg in color on white square, in png format."
+        },
+        "icon_inverted_transparent_png": {
+          "type"       : "string",
+          "format"     : "uri",
+          "description": "Icon of the sdg in color with transparent background, in png format."
+        }
+      }
+    },
+    "Target"  : {
+      "type": "object",
+      "properties": {
+        "code"       : {"type": "string", "description": "Target code, e.g. `1.1`."  },
+        "title_short": {"type": "string", "description": "Short title of the target."},
+        "title"      : {"type": "string", "description": "Full title of the target." }
+      }
+    }
+  }
+}
