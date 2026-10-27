@@ -1,85 +1,94 @@
 {
-  "list": {
+  "list"   : {
     "get": {
-      "tags": ["Indicators"],
-      "summary": "List indicators",
+      "tags"       : ["Indicators"],
+      "summary"    : "List indicators",
       "operationId": "listIndicators",
-      "parameters": [
+      "parameters" : [
         {"$ref": "common.json#/parameters/lang" },
         {"$ref": "common.json#/parameters/dico" },
-        {"$ref": "common.json#/parameters/nuts1" },
-        {"$ref": "common.json#/parameters/nuts2" },
-        {"$ref": "common.json#/parameters/nuts3" },
+        {"$ref": "common.json#/parameters/nuts1"},
+        {"$ref": "common.json#/parameters/nuts2"},
+        {"$ref": "common.json#/parameters/nuts3"},
         {"$ref": "common.json#/parameters/limit"},
         {"$ref": "common.json#/parameters/page" },
-        {"$ref": "common.json#/parameters/sdg" }
+        {"$ref": "common.json#/parameters/sdg"  }
       ],
-      "responses": {
+      "responses"  : {
         "200": {
-          "description": "A page of indicators",
-          "content": {
-            "application/json": {
-              "schema": { "$ref": "#/schemas/IndicatorList" }
-            }
+          "description": "A list of indicators related to the sustainable develoment goals.",
+          "content"    : {
+            "application/json": { "schema": {"$ref": "#/schemas/IndicatorList"} }
           }
         },
         "400": {"$ref": "common.json#/responses/BadRequest"  },
-        "401": {"$ref": "common.json#/responses/Unauthorized"},
-        "404": {"$ref": "common.json#/responses/NotFound"}
+        "401": {"$ref": "common.json#/responses/Unauthorized"}
       }
     }
   },
-  "detail": {
+  "detail" : {
     "get": {
-      "tags": ["Indicators"],
-      "summary": "Get one indicator record",
+      "tags"       : ["Indicators"],
+      "summary"    : "Get one indicator record",
       "operationId": "getIndicator",
-      "parameters": [{ "$ref": "common.json#/parameters/id" }],
-      "responses": {
+      "parameters" : [ {"$ref": "common.json#/parameters/id"} ],
+      "responses"  : {
         "200": {
           "description": "Record for one indicator",
-          "content": {
-            "application/json": {
-              "schema": { "$ref": "#/schemas/Indicator" }
-            }
+          "content"    : {
+            "application/json": { "schema": {"$ref": "#/schemas/Indicator"} }
           }
         },
         "400": {"$ref": "common.json#/responses/BadRequest"  },
         "401": {"$ref": "common.json#/responses/Unauthorized"},
-        "404": {"$ref": "common.json#/responses/NotFound"}
+        "404": {"$ref": "common.json#/responses/NotFound"    }
       }
     }
   },
   "schemas": {
-    "Indicator": {
-      "type": "object",
+    "Indicator"    : {
+      "type"      : "object",
       "required"  : ["id", "name"],
       "properties": {
-        "id"                    : {"type": "integer"},
-        "created_at"            : {"type": "string", "format": "date-time", "description": "The date the indicator was submitted, format ISO 8601."},
-        "updated_at"            : {"type": "string", "format": "date-time", "description": "The date of the last update performed on the indicator, format ISO 8601."},
-        "name"                  : {"type": "string", "description": "Indicator name"},
-        "metadata_url"          : {"type": "string"},
-        "metadata_unit"         : {"type": "string"},
-        "metadata_notes"        : {"type": "string"},
-        "metadata_source"       : {"type": "string"},
-        "metadata_updated_at"   : {"type": "string"},
-        "sdg"                   : {"type": "integer", "description": "The sdg the indicator is connected to."},
-        "sdg_target"            : {"type": "string", "description": "The target the indicator is connected to."},
-        "type"                  : {"type": "string", "enum": ["reference", "specific"], 
-                                   "description": "Indicator type, either 'reference', based on indicators of the agenda 2030, or 'specific', created by the ODSlocal platform."},
-        "target_direction"      : {"type": "string", "enum": ["higher", "lower"], "description": "Indicator direction, if values are supposed to increase or decrease."},
-        "grid_data"             : {"type": "string"},
-        "base_value"            : {"type": "number", "format": "double"},
-        "target_value"          : {"type": "number", "format": "double"},
-        "values"                : {"type": "array", "items": {"type": "number", "format": "double"}, "description": "An array of values along time."}
+        "id": {"type": "integer"},
+        "created_at": {
+          "type"       : "string",
+          "format"     : "date-time",
+          "description": "The date the indicator was submitted, format ISO 8601."
+        },
+        "updated_at": {
+          "type"       : "string",
+          "format"     : "date-time",
+          "description": "The date of the last update performed on the indicator, format ISO 8601."
+        },
+        "name"               : {"type": "string",  "description": "Indicator name"                           },
+        "metadata_url"       : {"type": "string"                                                             },
+        "metadata_unit"      : {"type": "string"                                                             },
+        "metadata_notes"     : {"type": "string"                                                             },
+        "metadata_source"    : {"type": "string"                                                             },
+        "metadata_updated_at": {"type": "string"                                                             },
+        "sdg"                : {"type": "integer", "description": "The sdg the indicator is connected to."   },
+        "sdg_target"         : {"type": "string",  "description": "The target the indicator is connected to."},
+        "type": {
+          "type": "string",
+          "enum": ["reference", "specific"],
+          "description": "Indicator type, either 'reference', based on indicators of the agenda 2030, or 'specific', created by the ODSlocal platform."
+        },
+        "target_direction": {
+          "type"       : "string",
+          "enum"       : ["higher", "lower"],
+          "description": "Indicator direction, if values are supposed to increase or decrease."
+        },
+        "grid_data"   : {"type": "string"                    },
+        "base_value"  : {"type": "number", "format": "double"},
+        "target_value": {"type": "number", "format": "double"},
+        "values": {
+          "type"       : "array",
+          "items"      : {"type": "number", "format": "double"},
+          "description": "An array of values along time."
+        }
       }
     },
-    "IndicatorList": {
-      "type": "object",
-      "properties": {
-        "data": { "type": "array", "items": { "$ref": "#/schemas/Indicator" } }
-      }
-    }
+    "IndicatorList": { "type": "array", "items": {"$ref": "#/schemas/Indicator"} }
   }
 }

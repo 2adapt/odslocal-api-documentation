@@ -12,28 +12,24 @@
       ],
       "responses"  : {
         "200": {
-          "description": "A page of municipality names and their corresponding DICO and NUTS codes.",
+          "description": "A list of municipality names and their corresponding DICO and NUTS codes.",
           "content"    : {
             "application/json": {
               "schema": {
-                "type": "object",
-                "properties": {
-                  "data": { "type": "array", "items": {"$ref": "#/schemas/Municipality"} }
+                "type": "array", 
+                "items": {"$ref": "#/schemas/Municipality"}
                 }
               }
             }
-          }
-        },
+          },
         "400": {"$ref": "common.json#/responses/BadRequest"  },
-        "401": {"$ref": "common.json#/responses/Unauthorized"},
-        "404": {"$ref": "common.json#/responses/NotFound"    }
+        "401": {"$ref": "common.json#/responses/Unauthorized"}
       }
     }
   },
   "schemas": {
     "Municipality": {
       "type"      : "object",
-      "required"  : [],
       "properties": {
         "id"               : {"type": "integer"},
         "municipality_name": {"type": "string"},

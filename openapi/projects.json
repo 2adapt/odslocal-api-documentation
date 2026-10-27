@@ -1,118 +1,158 @@
 {
-  "list": {
+  "list"   : {
     "get": {
-      "tags": ["Projects"],
-      "summary": "List projects",
-      "security"   : [{"httpBearer": []}],
+      "tags"       : ["Projects"],
+      "summary"    : "List projects",
+      "security"   : [ {"httpBearer": []} ],
       "operationId": "listProjects",
       "parameters" : [
         {"$ref": "common.json#/parameters/lang" },
         {"$ref": "common.json#/parameters/dico" },
-        {"$ref": "common.json#/parameters/nuts1" },
-        {"$ref": "common.json#/parameters/nuts2" },
-        {"$ref": "common.json#/parameters/nuts3" },
+        {"$ref": "common.json#/parameters/nuts1"},
+        {"$ref": "common.json#/parameters/nuts2"},
+        {"$ref": "common.json#/parameters/nuts3"},
         {"$ref": "common.json#/parameters/sort" },
         {"$ref": "common.json#/parameters/order"},
         {"$ref": "common.json#/parameters/limit"},
         {"$ref": "common.json#/parameters/page" },
-        {"$ref": "common.json#/parameters/sdg" }
+        {"$ref": "common.json#/parameters/sdg"  }
       ],
-      "responses": {
+      "responses"  : {
         "200": {
-          "description": "A page of projects",
-          "content": {
-            "application/json": {
-              "schema": { "$ref": "#/schemas/ProjectList" }
-            }
+          "description": "A list of projects.",
+          "content"    : {
+            "application/json": { "schema": {"$ref": "#/schemas/ProjectList"} }
           }
         },
-        "400": { "$ref": "common.json#/responses/BadRequest" },
-        "401": { "$ref": "common.json#/responses/Unauthorized" },
-        "404": { "$ref": "common.json#/responses/NotFound" }
+        "400": {"$ref": "common.json#/responses/BadRequest"  },
+        "401": {"$ref": "common.json#/responses/Unauthorized"}
       }
     }
   },
-  "detail": {
+  "detail" : {
     "get": {
-      "tags": ["Projects"],
-      "summary": "Get one project",
-      "security"   : [{"httpBearer": []}],
+      "tags"       : ["Projects"],
+      "summary"    : "Get one project",
+      "security"   : [ {"httpBearer": []} ],
       "operationId": "getProject",
-      "parameters" : [ 
-        {"$ref": "common.json#/parameters/lang"} 
-      ],
-      "responses": {
+      "parameters" : [ {"$ref": "common.json#/parameters/lang"} ],
+      "responses"  : {
         "200": {
           "description": "The project",
-          "content": {
-            "application/json": {
-              "schema": { "$ref": "#/schemas/Project" }
-            }
+          "content"    : {
+            "application/json": { "schema": {"$ref": "#/schemas/Project"} }
           }
         },
-        "400": { "$ref": "common.json#/responses/BadRequest" },
-        "401": { "$ref": "common.json#/responses/Unauthorized" },
-        "404": { "$ref": "common.json#/responses/NotFound" }
+        "400": {"$ref": "common.json#/responses/BadRequest"  },
+        "401": {"$ref": "common.json#/responses/Unauthorized"},
+        "404": {"$ref": "common.json#/responses/NotFound"    }
       }
     }
   },
   "schemas": {
-    "Project": {
-      "type": "object",
-      "required": ["id", "name"],
+    "Project"    : {
+      "type"      : "object",
+      "required"  : ["id", "name"],
       "properties": {
-        "id"                    : {"type": "integer"},
-        "name"                  : {"type": "string"},
-        "description"           : {"type": "string", "description": "A text of maximum 1000 characters describing the project."},
-        "address"               : {"type": "string", "description": "Address of the project, given in Street, Nr, city, postal code"},
-        "postal_code"           : {"type": "string", "description": "Postal code following the portuguese postal code system (https://www.codigo-postal.pt)."},
-        "latitude"              : {"type": "number", "format": "double", "minimum": -90, "maximum": 90, "description": "Latitude in decimal degrees (WGS 84, EPSG:4326)."},
-        "longitude"             : {"type": "number", "format": "double", "minimum": -180, "maximum": 180, "description": "Longitude in decimal degrees (WGS 84, EPSG:4326)."},
-        "started_at"            : {"type": "string", "format": "date-time", "description": "The date the project was started, format ISO 8601."},
-        "created_at"            : {"type": "string", "format": "date-time", "description": "The date the project was submitted, format ISO 8601."},
-        "updated_at"            : {"type": "string", "format": "date-time", "description": "The date of the last update performed on the project, format ISO 8601."},
-        "keywords"              : {"type": "array", "items": {"type": "string"} },
-        "dico"                  : {"$ref": "common.json#/schemas/Dico"},
-        "agent"                 : {"type": "string", "description": "The promoter of the project."},
-        "url_website"           : {"type": "string", "format": "uri", "description": "Official url of the project."},
-        "url_social"            : {"type": "string", "format": "uri", "description": "Social media associated with the project." },
-        "url_video"             : {"type": "string", "format": "uri", "description": "Video url of the project." },
-        "reach"                 : {"type": "string", "description": "The potential reach of the project as an interval."},
-        "score_sdg_1"           : {"$ref": "common.json#/schemas/GoalScore"},
-        "score_sdg_2"           : {"$ref": "common.json#/schemas/GoalScore"},
-        "score_sdg_3"           : {"$ref": "common.json#/schemas/GoalScore"},
-        "score_sdg_4"           : {"$ref": "common.json#/schemas/GoalScore"},
-        "score_sdg_5"           : {"$ref": "common.json#/schemas/GoalScore"},
-        "score_sdg_6"           : {"$ref": "common.json#/schemas/GoalScore"},
-        "score_sdg_7"           : {"$ref": "common.json#/schemas/GoalScore"},
-        "score_sdg_8"           : {"$ref": "common.json#/schemas/GoalScore"},
-        "score_sdg_9"           : {"$ref": "common.json#/schemas/GoalScore"},
-        "score_sdg_10"          : {"$ref": "common.json#/schemas/GoalScore"},
-        "score_sdg_11"          : {"$ref": "common.json#/schemas/GoalScore"},
-        "score_sdg_12"          : {"$ref": "common.json#/schemas/GoalScore"},
-        "score_sdg_13"          : {"$ref": "common.json#/schemas/GoalScore"},
-        "score_sdg_14"          : {"$ref": "common.json#/schemas/GoalScore"},
-        "score_sdg_15"          : {"$ref": "common.json#/schemas/GoalScore"},
-        "score_sdg_16"          : {"$ref": "common.json#/schemas/GoalScore"},
-        "score_sdg_17"          : {"$ref": "common.json#/schemas/GoalScore"},
-        "score_sdg_list"        : {"type": "array", 
-                                   "items": {"type": "integer", "minimum": -5, "maximum": 5},
-                                   "description": "Self assessment of the contribution to the respective goal. Can be negative."
-                                  },
-        "image_list_sm"         : {"type": "array", "items": {"type": "string", "format": "uri"}, "description": "Array of urls to small scale images." },
-        "image_list_md"         : {"type": "array", "items": {"type": "string", "format": "uri"}, "description": "Array of urls to medium scale images." },
-        "image_list_lg"         : {"type": "array", "items": {"type": "string", "format": "uri"}, "description": "Array of urls to large scale images." },
-        "image_list_description": {"type": "array", "items": { "type": "string" }, "description": "Text describing each image, in the same order as the image lists." },
-        "impact_count"          : {"type": "integer", "description": "The sum of recorded impacts." },
-        "impact_goals"          : {"type": "array", "items": {"type": "integer"}, "description": "The sdgs associated with the recorded impacts." },
-        "impact_targets"        : {"type": "array", "items": {"type": "string"}, "description": "The targets associated with the recorded impacts." }
+        "id": {"type": "integer"},
+        "name": {"type": "string"},
+        "description": {"type": "string", "description": "A text of maximum 1000 characters describing the project."},
+        "address": {"type": "string", "description": "Address of the project, given in Street, Nr, city, postal code"},
+        "postal_code": {
+          "type"       : "string",
+          "description": "Postal code following the portuguese postal code system (https://www.codigo-postal.pt)."
+        },
+        "latitude": {
+          "type"       : "number",
+          "format"     : "double",
+          "minimum"    : -90,
+          "maximum"    : 90,
+          "description": "Latitude in decimal degrees (WGS 84, EPSG:4326)."
+        },
+        "longitude": {
+          "type"       : "number",
+          "format"     : "double",
+          "minimum"    : -180,
+          "maximum"    : 180,
+          "description": "Longitude in decimal degrees (WGS 84, EPSG:4326)."
+        },
+        "started_at": {
+          "type"       : "string",
+          "format"     : "date-time",
+          "description": "The date the project was started, format ISO 8601."
+        },
+        "created_at": {
+          "type"       : "string",
+          "format"     : "date-time",
+          "description": "The date the project was submitted, format ISO 8601."
+        },
+        "updated_at": {
+          "type"       : "string",
+          "format"     : "date-time",
+          "description": "The date of the last update performed on the project, format ISO 8601."
+        },
+        "keywords": { "type": "array", "items": {"type": "string"} },
+        "dico": {"$ref": "common.json#/schemas/Dico"},
+        "agent": {"type": "string", "description": "The promoter of the project."},
+        "url_website": {"type": "string", "format": "uri", "description": "Official url of the project."},
+        "url_social": {"type": "string", "format": "uri", "description": "Social media associated with the project."},
+        "url_video": {"type": "string", "format": "uri", "description": "Video url of the project."},
+        "reach": {"type": "string", "description": "The potential reach of the project as an interval."},
+        "score_sdg_1": {"$ref": "common.json#/schemas/GoalScore"},
+        "score_sdg_2": {"$ref": "common.json#/schemas/GoalScore"},
+        "score_sdg_3": {"$ref": "common.json#/schemas/GoalScore"},
+        "score_sdg_4": {"$ref": "common.json#/schemas/GoalScore"},
+        "score_sdg_5": {"$ref": "common.json#/schemas/GoalScore"},
+        "score_sdg_6": {"$ref": "common.json#/schemas/GoalScore"},
+        "score_sdg_7": {"$ref": "common.json#/schemas/GoalScore"},
+        "score_sdg_8": {"$ref": "common.json#/schemas/GoalScore"},
+        "score_sdg_9": {"$ref": "common.json#/schemas/GoalScore"},
+        "score_sdg_10": {"$ref": "common.json#/schemas/GoalScore"},
+        "score_sdg_11": {"$ref": "common.json#/schemas/GoalScore"},
+        "score_sdg_12": {"$ref": "common.json#/schemas/GoalScore"},
+        "score_sdg_13": {"$ref": "common.json#/schemas/GoalScore"},
+        "score_sdg_14": {"$ref": "common.json#/schemas/GoalScore"},
+        "score_sdg_15": {"$ref": "common.json#/schemas/GoalScore"},
+        "score_sdg_16": {"$ref": "common.json#/schemas/GoalScore"},
+        "score_sdg_17": {"$ref": "common.json#/schemas/GoalScore"},
+        "score_sdg_list": {
+          "type"       : "array",
+          "items"      : {"type": "integer", "minimum": -5, "maximum": 5},
+          "description": "Self assessment of the contribution to the respective goal. Can be negative."
+        },
+        "image_list_sm": {
+          "type"       : "array",
+          "items"      : {"type": "string", "format": "uri"},
+          "description": "Array of urls to small scale images."
+        },
+        "image_list_md": {
+          "type"       : "array",
+          "items"      : {"type": "string", "format": "uri"},
+          "description": "Array of urls to medium scale images."
+        },
+        "image_list_lg": {
+          "type"       : "array",
+          "items"      : {"type": "string", "format": "uri"},
+          "description": "Array of urls to large scale images."
+        },
+        "image_list_description": {
+          "type"       : "array",
+          "items"      : {"type": "string"},
+          "description": "Text describing each image, in the same order as the image lists."
+        },
+        "impact_count": {"type": "integer", "description": "The sum of recorded impacts."},
+        "impact_goals": {
+          "type"       : "array",
+          "items"      : {"type": "integer"},
+          "description": "The sdgs associated with the recorded impacts."
+        },
+        "impact_targets": {
+          "type"       : "array",
+          "items"      : {"type": "string"},
+          "description": "The targets associated with the recorded impacts."
+        }
       }
     },
-    "ProjectList": {
-      "type": "object",
-      "properties": {
-        "data": { "type": "array", "items": { "$ref": "#/schemas/Project" } }
-      }
-    }
+    "ProjectList": { "type": "array", "items": {"$ref": "#/schemas/Project"} }
   }
 }

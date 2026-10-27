@@ -7,21 +7,18 @@
       "parameters" : [ {"$ref": "common.json#/parameters/sdg"} ],
       "responses"  : {
         "200": {
-          "description": "A page of information on the sustainable develoment goals.",
+          "description": "A list of information on the sustainable develoment goals.",
           "content"    : {
             "application/json": {
               "schema": {
-                "type": "object",
-                "properties": {
-                  "data": { "type": "array", "items": {"$ref": "#/schemas/SDG_info"} }
+                "type": "array", 
+                "items": {"$ref": "#/schemas/SDG_info"}
                 }
               }
             }
-          }
-        },
+          },
         "400": {"$ref": "common.json#/responses/BadRequest"  },
-        "401": {"$ref": "common.json#/responses/Unauthorized"},
-        "404": {"$ref": "common.json#/responses/NotFound"    }
+        "401": {"$ref": "common.json#/responses/Unauthorized"}
       }
     }
   },
