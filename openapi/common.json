@@ -5,6 +5,11 @@
       "in"    : "query",
       "schema": { "type": "string", "enum": ["pt", "en"], "default": "pt" }
     },
+    "format" : {
+      "name"  : "format",
+      "in"    : "query",
+      "schema": { "type": "string", "enum": ["json", "csv"], "default": "json" }
+    },
     "dico" : { "name": "dico",  "in": "query", "schema": {"$ref": "#/schemas/Dico"                   } },
     "id"   : { "name": "id",    "in": "query", "schema": {                          "type": "integer"} },
     "nuts1": { "name": "nuts1", "in": "query", "schema": {"$ref": "#/schemas/Nuts"                   } },

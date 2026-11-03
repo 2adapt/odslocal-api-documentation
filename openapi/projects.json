@@ -15,7 +15,8 @@
         {"$ref": "common.json#/parameters/order"},
         {"$ref": "common.json#/parameters/limit"},
         {"$ref": "common.json#/parameters/page" },
-        {"$ref": "common.json#/parameters/sdg"  }
+        {"$ref": "common.json#/parameters/sdg"  },
+        {"$ref": "common.json#/parameters/format" }
       ],
       "responses"  : {
         "200": {
