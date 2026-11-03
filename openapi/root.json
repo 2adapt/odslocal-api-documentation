@@ -13,7 +13,7 @@
     {"name": "Municipalities", "description": "List of municipalities with respective dico and NUTS codes"},
     {"name": "SDG info",       "description": "List of information on the sustainable develoment goals"   }
   ],
-  "security": [ {"ApiKeyAuth": []} ],
+  "security": [ {"httpBearer": []} ],
   "paths"     : {
     "/indicators"         : {"$ref": "indicators.json#/list"      },
     "/indicators/{id}"    : {"$ref": "indicators.json#/detail"    },

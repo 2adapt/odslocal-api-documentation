@@ -1,41 +1,37 @@
 {
   "parameters": {
-    "lang" : {
+    "id": { "name": "id", "in": "path", "schema": {"type": "integer"} },
+    "lang"  : {
       "name"  : "lang",
       "in"    : "query",
       "schema": { "type": "string", "enum": ["pt", "en"], "default": "pt" }
     },
-    "format" : {
-      "name"  : "format",
-      "in"    : "query",
-      "schema": { "type": "string", "enum": ["json", "csv"], "default": "json" }
-    },
-    "dico" : { "name": "dico",  "in": "query", "schema": {"$ref": "#/schemas/Dico"                   } },
-    "id"   : { "name": "id",    "in": "query", "schema": {                          "type": "integer"} },
-    "nuts1": { "name": "nuts1", "in": "query", "schema": {"$ref": "#/schemas/Nuts"                   } },
-    "nuts2": { "name": "nuts2", "in": "query", "schema": {"$ref": "#/schemas/Nuts"                   } },
-    "nuts3": { "name": "nuts3", "in": "query", "schema": {"$ref": "#/schemas/Nuts"                   } },
-    "sort" : {
+    "format": { "name": "format", "in": "query", "schema": {"$ref": "#/schemas/Format"} },
+    "dico"  : { "name": "dico",   "in": "query", "schema": {"$ref": "#/schemas/Dico" } },
+    "nuts1" : { "name": "nuts1",  "in": "query", "schema": {"$ref": "#/schemas/Nuts" } },
+    "nuts2" : { "name": "nuts2",  "in": "query", "schema": {"$ref": "#/schemas/Nuts" } },
+    "nuts3" : { "name": "nuts3",  "in": "query", "schema": {"$ref": "#/schemas/Nuts" } },
+    "sort"  : {
       "name"  : "sort",
       "in"    : "query",
       "schema": { "type": "string", "enum": ["created_at", "updated_at"], "default": "created_at" }
     },
-    "order": {
+    "order" : {
       "name"  : "order",
       "in"    : "query",
       "schema": { "type": "string", "enum": ["asc", "desc"], "default": "desc" }
     },
-    "limit": {
+    "limit" : {
       "name"  : "limit",
       "in"    : "query",
       "schema": {"type": "integer", "minimum": 1, "maximum": 1000, "default": 100}
     },
-    "page" : {
+    "page"  : {
       "name"  : "page",
       "in"    : "query",
       "schema": {"type": "integer", "minimum": 1, "maximum": 10, "default": 1}
     },
-    "sdg"  : { "name": "sdg", "in": "query", "schema": {"type": "integer", "minimum": 1, "maximum": 17} }
+    "sdg"   : { "name": "sdg", "in": "query", "schema": {"type": "integer", "minimum": 1, "maximum": 17} }
   },
   "schemas"   : {
     "Error"    : {
@@ -56,6 +52,12 @@
     "Nuts"     : {
       "type": "string",
       "description": "NUTS nomenclature, based on the eurostat 2024: https://ec.europa.eu/eurostat/web/nuts/overview and data from https://gisco-services.ec.europa.eu/distribution/v2/nuts/nuts-2024-files.html"
+    },
+    "Format"   : {
+      "type": "string",
+      "enum": ["json", "csv"],
+      "default": "json",
+      "description": "Data can be obtained via json or csv formats, defaults to json. Nested objects are flattened into individual objects."
     }
   },
   "responses" : {

@@ -8,7 +8,8 @@
         {"$ref": "common.json#/parameters/dico" },
         {"$ref": "common.json#/parameters/nuts1"},
         {"$ref": "common.json#/parameters/nuts2"},
-        {"$ref": "common.json#/parameters/nuts3"}
+        {"$ref": "common.json#/parameters/nuts3"},
+        {"$ref": "common.json#/parameters/format" }
       ],
       "responses"  : {
         "200": {

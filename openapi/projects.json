@@ -36,7 +36,7 @@
       "summary"    : "Get one project",
       "security"   : [ {"httpBearer": []} ],
       "operationId": "getProject",
-      "parameters" : [ {"$ref": "common.json#/parameters/lang"} ],
+      "parameters" : [ {"$ref": "common.json#/parameters/id"}, {"$ref": "common.json#/parameters/lang"} ],
       "responses"  : {
         "200": {
           "description": "The project",

@@ -12,7 +12,8 @@
         {"$ref": "common.json#/parameters/nuts3"},
         {"$ref": "common.json#/parameters/limit"},
         {"$ref": "common.json#/parameters/page" },
-        {"$ref": "common.json#/parameters/sdg"  }
+        {"$ref": "common.json#/parameters/sdg"  },
+        {"$ref": "common.json#/parameters/format" }
       ],
       "responses"  : {
         "200": {
@@ -31,7 +32,7 @@
       "tags"       : ["Indicators"],
       "summary"    : "Get one indicator record",
       "operationId": "getIndicator",
-      "parameters" : [ {"$ref": "common.json#/parameters/id"} ],
+      "parameters" : [ {"$ref": "common.json#/parameters/id"}, {"$ref": "common.json#/parameters/lang"} ],
       "responses"  : {
         "200": {
           "description": "Record for one indicator",

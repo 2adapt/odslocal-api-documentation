@@ -4,7 +4,10 @@
       "tags"       : ["SDG info"],
       "summary"    : "List information on SDGs",
       "operationId": "listSDG_info",
-      "parameters" : [ {"$ref": "common.json#/parameters/sdg"} ],
+      "parameters" : [ 
+        {"$ref": "common.json#/parameters/sdg"},
+        {"$ref": "common.json#/parameters/format" }
+      ],
       "responses"  : {
         "200": {
           "description": "A list of information on the sustainable develoment goals.",
