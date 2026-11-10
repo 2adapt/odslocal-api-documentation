@@ -7,10 +7,7 @@
       "schema": { "type": "string", "enum": ["pt", "en"], "default": "pt" }
     },
     "format": { "name": "format", "in": "query", "schema": {"$ref": "#/schemas/Format"} },
-    "dico"  : { "name": "dico",   "in": "query", "schema": {"$ref": "#/schemas/Dico" } },
-    "nuts1" : { "name": "nuts1",  "in": "query", "schema": {"$ref": "#/schemas/Nuts" } },
-    "nuts2" : { "name": "nuts2",  "in": "query", "schema": {"$ref": "#/schemas/Nuts" } },
-    "nuts3" : { "name": "nuts3",  "in": "query", "schema": {"$ref": "#/schemas/Nuts" } },
+    "region": { "name": "region", "in": "query", "schema": {"$ref": "#/schemas/Region"} },
     "sort"  : {
       "name"  : "sort",
       "in"    : "query",
@@ -45,13 +42,9 @@
       "maximum"    : 5,
       "description": "Self assessment of the contribution to the respective goal. Can be negative."
     },
-    "Dico"     : {
+    "Region"   : {
       "type": "string",
-      "description": "A four digit code that defines the municipality, available at: https://www.dgterritorio.gov.pt/atividades/cartografia/cartografia-tematica/caop"
-    },
-    "Nuts"     : {
-      "type": "string",
-      "description": "NUTS nomenclature, based on the eurostat 2024: https://ec.europa.eu/eurostat/web/nuts/overview and data from https://gisco-services.ec.europa.eu/distribution/v2/nuts/nuts-2024-files.html"
+      "description": "Region determined by either NUTS nomenclature, based on the eurostat 2024: https://ec.europa.eu/eurostat/web/nuts/overview and data from https://gisco-services.ec.europa.eu/distribution/v2/nuts/nuts-2024-files.html or the DICO code, a four digit code that defines the municipality, available at: https://www.dgterritorio.gov.pt/atividades/cartografia/cartografia-tematica/caop"
     },
     "Format"   : {
       "type": "string",

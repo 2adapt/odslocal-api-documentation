@@ -7,11 +7,11 @@
   },
   "servers": [ {"url": "https://odslocal.pt/api/v4", "description": "Production (placeholder)"} ],
   "tags"      : [
-    {"name": "Indicators",     "description": "SDG indicator values per municipality and year"            },
-    {"name": "Good Practices", "description": "Documented good practices linked to SDGs"                  },
-    {"name": "Projects",       "description": "Municipal projects linked to SDGs"                         },
-    {"name": "Municipalities", "description": "List of municipalities with respective dico and NUTS codes"},
-    {"name": "SDG info",       "description": "List of information on the sustainable develoment goals"   }
+    {"name": "Indicators",     "description": "SDG indicator values per municipality and year"                     },
+    {"name": "Good Practices", "description": "Documented good practices linked to SDGs"                           },
+    {"name": "Projects",       "description": "Municipal projects linked to SDGs"                                  },
+    {"name": "Regions",        "description": "Lookup table for municipalities with respective DICO and NUTS codes"},
+    {"name": "SDG info",       "description": "List of information on the sustainable develoment goals"            }
   ],
   "security": [ {"httpBearer": []} ],
   "paths"     : {
@@ -21,7 +21,7 @@
     "/good-practices/{id}": {"$ref": "good-practices.json#/detail"},
     "/projects"           : {"$ref": "projects.json#/list"        },
     "/projects/{id}"      : {"$ref": "projects.json#/detail"      },
-    "/municipalities"     : {"$ref": "municipalities.json#/list"  },
+    "/regions"            : {"$ref": "regions.json#/list"         },
     "/SDG_info"           : {"$ref": "sdg_info.json#/list"        }
   },
   "components": {
@@ -30,7 +30,7 @@
       "Indicator"   : {"$ref": "indicators.json#/schemas/Indicator"       },
       "GoodPractice": {"$ref": "good-practices.json#/schemas/GoodPractice"},
       "Project"     : {"$ref": "projects.json#/schemas/Project"           },
-      "Municipality": {"$ref": "municipalities.json#/schemas/Municipality"},
+      "Region"      : {"$ref": "regions.json#/schemas/Region"             },
       "SDG_info"    : {"$ref": "sdg_info.json#/schemas/SDG_info"          }
     }
   }

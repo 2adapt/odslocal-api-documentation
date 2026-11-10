@@ -6,17 +6,14 @@
       "security"   : [ {"httpBearer": []} ],
       "operationId": "listProjects",
       "parameters" : [
-        {"$ref": "common.json#/parameters/lang" },
-        {"$ref": "common.json#/parameters/dico" },
-        {"$ref": "common.json#/parameters/nuts1"},
-        {"$ref": "common.json#/parameters/nuts2"},
-        {"$ref": "common.json#/parameters/nuts3"},
-        {"$ref": "common.json#/parameters/sort" },
-        {"$ref": "common.json#/parameters/order"},
-        {"$ref": "common.json#/parameters/limit"},
-        {"$ref": "common.json#/parameters/page" },
-        {"$ref": "common.json#/parameters/sdg"  },
-        {"$ref": "common.json#/parameters/format" }
+        {"$ref": "common.json#/parameters/lang"  },
+        {"$ref": "common.json#/parameters/region"},
+        {"$ref": "common.json#/parameters/sort"  },
+        {"$ref": "common.json#/parameters/order" },
+        {"$ref": "common.json#/parameters/limit" },
+        {"$ref": "common.json#/parameters/page"  },
+        {"$ref": "common.json#/parameters/sdg"   },
+        {"$ref": "common.json#/parameters/format"}
       ],
       "responses"  : {
         "200": {
