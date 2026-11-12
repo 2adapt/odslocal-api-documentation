@@ -44,7 +44,7 @@
     },
     "Region"   : {
       "type": "string",
-      "description": "Region determined by either NUTS nomenclature, based on the eurostat 2024: https://ec.europa.eu/eurostat/web/nuts/overview and data from https://gisco-services.ec.europa.eu/distribution/v2/nuts/nuts-2024-files.html or the DICO code, a four digit code that defines the municipality, available at: https://www.dgterritorio.gov.pt/atividades/cartografia/cartografia-tematica/caop"
+      "description": "Region determined by either NUTS nomenclature, based on the eurostat 2024: https://ec.europa.eu/eurostat/web/nuts/overview and data from https://gisco-services.ec.europa.eu/distribution/v2/nuts/nuts-2024-files.html or the DICO code, a four digit code that defines the municipality, available at: https://www.dgterritorio.gov.pt/atividades/cartografia/cartografia-tematica/caop. Regions can also be looked up on this map for spatial identifiers: https://api.2adapt.pt/api-spatial-picker"
     },
     "Format"   : {
       "type": "string",
